@@ -6,7 +6,8 @@
 .container {
   min-height: 100vh;
   background-color: #1a1a2e;
-  padding-bottom: 40rpx;
+  padding-bottom: calc(40rpx + constant(safe-area-inset-bottom));
+  padding-bottom: calc(40rpx + env(safe-area-inset-bottom));
 }
 
 /* ── 用户信息卡片 ── */
@@ -142,28 +143,23 @@
   justify-content: space-between;
   padding: 32rpx 30rpx;
   border-bottom: 1rpx solid rgba(255, 255, 255, 0.05);
-  transition: background 0.15s;
+  min-height: 88rpx;
 }
 
 .menu-item:last-child {
   border-bottom: none;
 }
 
-.menu-item:active {
+.menu-item-hover {
   background: rgba(255, 255, 255, 0.04);
 }
 
 .menu-left {
   display: flex;
   align-items: center;
-  gap: 20rpx;
 }
 
 .menu-icon {
-  font-size: 36rpx;
-}
-
-.menu-text {
   font-size: 28rpx;
   color: #ddd;
 }

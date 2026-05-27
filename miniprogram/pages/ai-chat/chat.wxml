@@ -14,13 +14,13 @@
       <text class="welcome-desc">修行路上有什么困惑，尽管问我</text>
       <view class="welcome-suggestions">
         <text class="suggestion-title">—— 试试问这些 ——</text>
-        <view class="suggestion-item" bindtap="quickAsk" data-question="今天敲了多少下木鱼才算功德圆满？">
+        <view class="suggestion-item" bindtap="quickAsk" hover-class="suggestion-hover" data-question="今天敲了多少下木鱼才算功德圆满？">
           今天敲多少下才算功德圆满？
         </view>
-        <view class="suggestion-item" bindtap="quickAsk" data-question="功德和福报有什么区别？">
+        <view class="suggestion-item" bindtap="quickAsk" hover-class="suggestion-hover" data-question="功德和福报有什么区别？">
           功德和福报有什么区别？
         </view>
-        <view class="suggestion-item" bindtap="quickAsk" data-question="讲一个禅意小故事吧">
+        <view class="suggestion-item" bindtap="quickAsk" hover-class="suggestion-hover" data-question="讲一个禅意小故事吧">
           讲一个禅意小故事吧
         </view>
       </view>

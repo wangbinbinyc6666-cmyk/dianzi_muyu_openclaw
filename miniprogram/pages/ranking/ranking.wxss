@@ -6,7 +6,8 @@
 .container {
   min-height: 100vh;
   background-color: #1a1a2e;
-  padding-bottom: 40rpx;
+  padding-bottom: calc(40rpx + constant(safe-area-inset-bottom));
+  padding-bottom: calc(40rpx + env(safe-area-inset-bottom));
 }
 
 /* ── 页面标题 ── */
@@ -70,7 +71,6 @@
   margin-bottom: 12rpx;
   background: #252540;
   border-radius: 16rpx;
-  transition: background 0.2s;
 }
 
 /* 自己的排名高亮 */
@@ -220,6 +220,13 @@
 }
 
 /* ── 加载动画 ── */
+.loading-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80rpx 40rpx;
+}
+
 .loading-spinner {
   width: 60rpx;
   height: 60rpx;
@@ -227,6 +234,12 @@
   border-top-color: #FFD700;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
+  margin-bottom: 20rpx;
+}
+
+.loading-text {
+  font-size: 26rpx;
+  color: #888;
 }
 
 @keyframes spin {
@@ -234,8 +247,25 @@
 }
 
 /* ── 空状态 ── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80rpx 40rpx;
+}
+
+.empty-icon {
+  font-size: 64rpx;
+  margin-bottom: 16rpx;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #aaa;
+  margin-bottom: 8rpx;
+}
+
 .empty-hint {
-  margin-top: 12rpx;
   color: #666;
   font-size: 24rpx;
 }

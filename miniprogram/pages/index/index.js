@@ -1,12 +1,6 @@
 /**
- * 首页 - 木鱼敲击逻辑
- *
- * 交互流程：
- * 1. 点击木鱼 → 触发动画 class toggle
- * 2. 播放音效（/audio/tap.mp3）
- * 3. 触发短震动
- * 4. 功德+1、念力+1
- * 5. 本地存储 + 云端同步
+ * 首页 - 木鱼敲击
+ * 低延迟音效 + 即时计数 + 云端同步
  */
 
 const app = getApp();
@@ -15,13 +9,13 @@ Page({
   data: {
     merit: 0,
     power: 0,
-    todayMerit: 0
+    todayMerit: 0,
+    tapping: false
   },
 
   onLoad() {
     this.syncFromGlobal();
 
-    // 读取今日功德
     const todayMerit = wx.getStorageSync('todayMerit') || 0;
     const todayDate = wx.getStorageSync('todayDate') || '';
     const now = new Date();
@@ -47,47 +41,36 @@ Page({
     });
   },
 
-  /**
-   * 敲击木鱼 - 核心交互
-   */
   onTapWoodfish() {
-    // 1. 播放音效（懒加载，首次敲击时才初始化音频）
-    try {
-      const audioCtx = app.getAudioContext();
-      audioCtx.seek(0);
-      audioCtx.play();
-    } catch (e) {
-      // 音效文件不存在时静默处理
-    }
+    // 按压反馈：瞬时亮度变化（不涉及布局偏移）
+    this.setData({ tapping: true });
+    setTimeout(() => this.setData({ tapping: false }), 120);
 
-    // 2. 更新计数
+    // 低延迟音效（预加载音效池，首次已解码）
+    app.playTapSound();
+
+    // 计数更新
     const result = app.addMeritAndPower(1, 1);
     this.setData({
       merit: result.merit,
       power: result.power
     });
 
-    // 更新今日功德
     const todayMerit = (wx.getStorageSync('todayMerit') || 0) + 1;
     wx.setStorageSync('todayMerit', todayMerit);
     this.setData({ todayMerit });
 
-    // 3. 每10次敲击后台同步一次到云数据库
     if (result.merit % 10 === 0) {
       app.syncToCloud();
     }
   },
 
   goToAI() {
-    wx.navigateTo({
-      url: '/pages/ai-chat/chat'
-    });
+    wx.navigateTo({ url: '/pages/ai-chat/chat' });
   },
 
   goToRanking() {
-    wx.switchTab({
-      url: '/pages/ranking/ranking'
-    });
+    wx.switchTab({ url: '/pages/ranking/ranking' });
   },
 
   onShare() {
