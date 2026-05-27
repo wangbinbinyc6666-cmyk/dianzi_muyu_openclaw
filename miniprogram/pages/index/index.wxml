@@ -1,0 +1,54 @@
+<view class="container">
+  <!-- 顶部渐变横幅 -->
+  <view class="header-banner">
+    <text class="banner-text">阿弥陀佛，施主请敲木鱼</text>
+  </view>
+
+  <!-- 木鱼敲击区域 -->
+  <view class="woodfish-container" bindtap="onTapWoodfish">
+    <view class="woodfish-wrapper {{isTapping ? 'tapping' : ''}}">
+      <image src="/images/woodfish.png" mode="aspectFit" class="woodfish-img" />
+    </view>
+    <view class="tap-hint">轻敲木鱼 · 积攒功德</view>
+  </view>
+
+  <!-- 计数器区域 -->
+  <view class="counters">
+    <view class="counter-item merit-counter">
+      <text class="counter-label">⚜️ 功德</text>
+      <view class="counter-value-wrap">
+        <text class="counter-value merit-value {{meritAnimating ? 'count-pop' : ''}}">{{merit}}</text>
+      </view>
+      <text class="counter-desc">一敲一功德</text>
+    </view>
+    <view class="counter-divider"></view>
+    <view class="counter-item power-counter">
+      <text class="counter-label">💖 念力</text>
+      <view class="counter-value-wrap">
+        <text class="counter-value power-value {{powerAnimating ? 'count-pop' : ''}}">{{power}}</text>
+      </view>
+      <text class="counter-desc">心诚则灵</text>
+    </view>
+  </view>
+
+  <!-- 功能按钮 -->
+  <view class="action-buttons">
+    <view class="action-btn btn-ai" bindtap="goToAI">
+      <text class="btn-icon">🤖</text>
+      <text class="btn-text">AI师兄</text>
+    </view>
+    <view class="action-btn btn-ranking" bindtap="goToRanking">
+      <text class="btn-icon">🏆</text>
+      <text class="btn-text">排行榜</text>
+    </view>
+    <view class="action-btn btn-share" bindtap="onShare">
+      <text class="btn-icon">📤</text>
+      <text class="btn-text">分享功德</text>
+    </view>
+  </view>
+
+  <!-- 今日功德提示 -->
+  <view class="daily-tip">
+    <text class="tip-text">🙏 今日已积 {{todayMerit}} 点功德</text>
+  </view>
+</view>

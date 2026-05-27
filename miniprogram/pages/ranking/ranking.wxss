@@ -1,0 +1,241 @@
+/**
+ * 排行榜页面样式
+ * 前三名特殊样式：金/银/铜
+ */
+
+.container {
+  min-height: 100vh;
+  background-color: #1a1a2e;
+  padding-bottom: 40rpx;
+}
+
+/* ── 页面标题 ── */
+.page-header {
+  padding: 40rpx 30rpx 20rpx;
+  text-align: center;
+}
+
+.page-title {
+  display: block;
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #FFD700;
+  margin-bottom: 8rpx;
+}
+
+.page-desc {
+  display: block;
+  font-size: 24rpx;
+  color: #888;
+}
+
+/* ── 我的排名卡片 ── */
+.my-rank-card {
+  margin: 20rpx 30rpx;
+  padding: 24rpx 30rpx;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 105, 180, 0.1));
+  border: 2rpx solid rgba(255, 215, 0, 0.3);
+  border-radius: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.my-rank-badge {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #FFD700;
+}
+
+.my-rank-detail {
+  display: flex;
+  gap: 30rpx;
+}
+
+.my-rank-merit,
+.my-rank-power {
+  font-size: 26rpx;
+  color: #ccc;
+}
+
+/* ── 排行榜列表 ── */
+.ranking-list {
+  margin: 20rpx 30rpx;
+}
+
+.rank-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 20rpx;
+  margin-bottom: 12rpx;
+  background: #252540;
+  border-radius: 16rpx;
+  transition: background 0.2s;
+}
+
+/* 自己的排名高亮 */
+.rank-item.is-me {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.12), rgba(255, 215, 0, 0.04));
+  border: 1rpx solid rgba(255, 215, 0, 0.25);
+}
+
+/* 前三名特殊样式 */
+.rank-item.top-1 {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.05));
+  border: 1rpx solid rgba(255, 215, 0, 0.4);
+}
+
+.rank-item.top-2 {
+  background: linear-gradient(135deg, rgba(192, 192, 192, 0.15), rgba(192, 192, 192, 0.03));
+  border: 1rpx solid rgba(192, 192, 192, 0.3);
+}
+
+.rank-item.top-3 {
+  background: linear-gradient(135deg, rgba(205, 127, 50, 0.15), rgba(205, 127, 50, 0.03));
+  border: 1rpx solid rgba(205, 127, 50, 0.3);
+}
+
+/* ── 排名徽章 ── */
+.rank-badge {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.rank-number {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #888;
+}
+
+.rank-medal {
+  font-size: 40rpx;
+}
+
+/* ── 头像 ── */
+.rank-avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10rpx;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.avatar-placeholder {
+  font-size: 36rpx;
+}
+
+.avatar-img {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+}
+
+/* ── 用户信息 ── */
+.rank-info {
+  flex: 1;
+  margin-left: 20rpx;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.rank-nickname {
+  font-size: 28rpx;
+  color: #fff;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 240rpx;
+}
+
+.rank-merit-label {
+  font-size: 22rpx;
+  color: #FFD700;
+  margin-left: 6rpx;
+  flex-shrink: 0;
+}
+
+/* ── 功德数值 ── */
+.rank-merit {
+  display: flex;
+  align-items: baseline;
+  gap: 6rpx;
+  flex-shrink: 0;
+}
+
+.merit-number {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #FFD700;
+}
+
+.merit-unit {
+  font-size: 22rpx;
+  color: #888;
+}
+
+/* ── 列表底部 ── */
+.list-footer {
+  padding: 30rpx;
+  text-align: center;
+}
+
+.footer-text {
+  font-size: 22rpx;
+  color: #555;
+}
+
+/* ── 刷新按钮 ── */
+.refresh-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  padding: 24rpx;
+  margin: 20rpx 30rpx;
+  background: #252540;
+  border-radius: 16rpx;
+}
+
+.refresh-icon {
+  font-size: 28rpx;
+}
+
+.refresh-text {
+  font-size: 26rpx;
+  color: #aaa;
+}
+
+.refresh-btn:active {
+  background: #303050;
+}
+
+/* ── 加载动画 ── */
+.loading-spinner {
+  width: 60rpx;
+  height: 60rpx;
+  border: 4rpx solid rgba(255, 215, 0, 0.2);
+  border-top-color: #FFD700;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── 空状态 ── */
+.empty-hint {
+  margin-top: 12rpx;
+  color: #666;
+  font-size: 24rpx;
+}

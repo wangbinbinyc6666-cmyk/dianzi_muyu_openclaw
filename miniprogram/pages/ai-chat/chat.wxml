@@ -1,0 +1,91 @@
+<view class="container">
+  <!-- 聊天消息列表 -->
+  <scroll-view
+    class="chat-scroll"
+    scroll-y
+    scroll-into-view="{{scrollToId}}"
+    scroll-with-animation
+  >
+    <!-- 欢迎消息 / 空状态 -->
+    <view class="welcome-tip" wx:if="{{messages.length === 0}}">
+      <view class="welcome-avatar">🧘‍♂️</view>
+      <text class="welcome-title">木鱼师兄</text>
+      <text class="welcome-desc">阿弥陀佛，贫僧法号"木鱼师兄"</text>
+      <text class="welcome-desc">修行路上有什么困惑，尽管问我</text>
+      <view class="welcome-suggestions">
+        <text class="suggestion-title">—— 试试问这些 ——</text>
+        <view class="suggestion-item" bindtap="quickAsk" data-question="今天敲了多少下木鱼才算功德圆满？">
+          今天敲多少下才算功德圆满？
+        </view>
+        <view class="suggestion-item" bindtap="quickAsk" data-question="功德和福报有什么区别？">
+          功德和福报有什么区别？
+        </view>
+        <view class="suggestion-item" bindtap="quickAsk" data-question="讲一个禅意小故事吧">
+          讲一个禅意小故事吧
+        </view>
+      </view>
+    </view>
+
+    <!-- 消息列表 -->
+    <view
+      class="message-item {{item.role === 'user' ? 'msg-user' : 'msg-assistant'}}"
+      wx:for="{{messages}}"
+      wx:key="index"
+      id="msg-{{index}}"
+    >
+      <!-- AI 消息头像 -->
+      <view class="msg-avatar" wx:if="{{item.role === 'assistant'}}">
+        <text class="avatar-emoji">🧘‍♂️</text>
+      </view>
+
+      <!-- 消息气泡 -->
+      <view class="msg-bubble {{item.role === 'user' ? 'bubble-user' : 'bubble-assistant'}}">
+        <text class="msg-content" user-select>{{item.content}}</text>
+      </view>
+
+      <!-- 用户消息头像 -->
+      <view class="msg-avatar" wx:if="{{item.role === 'user'}}">
+        <text class="avatar-emoji">🙋</text>
+      </view>
+    </view>
+
+    <!-- AI 思考中动画 -->
+    <view class="message-item msg-assistant" wx:if="{{loading}}">
+      <view class="msg-avatar">
+        <text class="avatar-emoji">🧘‍♂️</text>
+      </view>
+      <view class="msg-bubble bubble-assistant thinking-bubble">
+        <view class="thinking-dots">
+          <view class="dot"></view>
+          <view class="dot"></view>
+          <view class="dot"></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部留白，防止最后一条消息被输入框遮挡 -->
+    <view class="chat-bottom-padding"></view>
+  </scroll-view>
+
+  <!-- 底部输入栏 -->
+  <view class="input-bar">
+    <view class="input-wrapper">
+      <input
+        class="chat-input"
+        value="{{inputValue}}"
+        placeholder="向师兄请教..."
+        placeholder-style="color: #666"
+        bindinput="onInput"
+        bindconfirm="onSend"
+        confirm-type="send"
+        adjust-position="{{false}}"
+      />
+    </view>
+    <view
+      class="send-btn {{inputValue ? 'active' : ''}}"
+      bindtap="onSend"
+    >
+      <text>发送</text>
+    </view>
+  </view>
+</view>

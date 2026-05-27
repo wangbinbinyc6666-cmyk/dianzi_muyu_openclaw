@@ -1,0 +1,79 @@
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <text class="page-title">🏆 功德排行榜</text>
+    <text class="page-desc">精进修行，名列前茅</text>
+  </view>
+
+  <!-- 我的排名卡片（始终显示在顶部） -->
+  <view class="my-rank-card" wx:if="{{myRank}}">
+    <view class="my-rank-badge">第 {{myRank.rank}} 名</view>
+    <view class="my-rank-detail">
+      <text class="my-rank-merit">⚜️ {{myRank.merit}} 功德</text>
+      <text class="my-rank-power">💖 {{myRank.power}} 念力</text>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-wrap" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">师兄正在查榜...</text>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && rankingList.length === 0}}">
+    <text class="empty-icon">📜</text>
+    <text class="empty-text">暂无排行数据</text>
+    <text class="empty-hint">快去敲木鱼成为第一名吧！</text>
+  </view>
+
+  <!-- 排行榜列表 -->
+  <view class="ranking-list" wx:if="{{!loading && rankingList.length > 0}}">
+    <view
+      class="rank-item {{item.isMe ? 'is-me' : ''}} {{item.rank <= 3 ? 'top-' + item.rank : ''}}"
+      wx:for="{{rankingList}}"
+      wx:key="rank"
+    >
+      <!-- 排名徽章 -->
+      <view class="rank-badge">
+        <text class="rank-number" wx:if="{{item.rank > 3}}">{{item.rank}}</text>
+        <text class="rank-medal" wx:if="{{item.rank === 1}}">🥇</text>
+        <text class="rank-medal" wx:if="{{item.rank === 2}}">🥈</text>
+        <text class="rank-medal" wx:if="{{item.rank === 3}}">🥉</text>
+      </view>
+
+      <!-- 用户头像 -->
+      <view class="rank-avatar">
+        <!--
+          头像占位符：使用微信头像或默认图标
+          替换方式：在云数据库中存储 avatarUrl 字段后，
+          将下面的 text 替换为：
+          <image src="{{item.avatarUrl}}" mode="aspectFill" class="avatar-img" />
+        -->
+        <text class="avatar-placeholder">🧘</text>
+      </view>
+
+      <!-- 昵称和功德 -->
+      <view class="rank-info">
+        <text class="rank-nickname">{{item.nickName}}</text>
+        <text class="rank-merit-label" wx:if="{{item.isMe}}">（我）</text>
+      </view>
+
+      <view class="rank-merit">
+        <text class="merit-number">{{item.merit}}</text>
+        <text class="merit-unit">功德</text>
+      </view>
+    </view>
+
+    <!-- 底部提示 -->
+    <view class="list-footer" wx:if="{{rankingList.length >= 100}}">
+      <text class="footer-text">仅显示前100名</text>
+    </view>
+  </view>
+
+  <!-- 刷新按钮 -->
+  <view class="refresh-btn" bindtap="loadRanking" wx:if="{{!loading}}">
+    <text class="refresh-icon">🔄</text>
+    <text class="refresh-text">刷新排行</text>
+  </view>
+</view>

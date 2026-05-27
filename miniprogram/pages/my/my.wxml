@@ -1,0 +1,84 @@
+<view class="container">
+  <!-- 用户信息卡片 -->
+  <view class="profile-card">
+    <view class="profile-bg"></view>
+    <view class="profile-content">
+      <!--
+        头像获取方式：
+        使用微信 button open-type="chooseAvatar" 获取用户头像
+        目前使用默认占位符
+      -->
+      <button class="avatar-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+        <image
+          class="profile-avatar"
+          src="{{avatarUrl}}"
+          mode="aspectFill"
+          wx:if="{{avatarUrl}}"
+        />
+        <text class="avatar-placeholder" wx:else>🧘</text>
+      </button>
+      <view class="profile-name-wrap">
+        <input
+          class="profile-name"
+          type="nickname"
+          value="{{nickName}}"
+          placeholder="点击设置昵称"
+          placeholder-style="color: #666"
+          bindblur="onNicknameBlur"
+        />
+      </view>
+      <text class="profile-signature">修行在心，功德在行</text>
+    </view>
+  </view>
+
+  <!-- 功德统计 -->
+  <view class="stats-card">
+    <view class="stat-item">
+      <text class="stat-number merit-number">{{merit}}</text>
+      <text class="stat-label">总功德 ⚜️</text>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <text class="stat-number power-number">{{power}}</text>
+      <text class="stat-label">总念力 💖</text>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <text class="stat-number rank-number">{{myRank}}</text>
+      <text class="stat-label">排名 🏆</text>
+    </view>
+  </view>
+
+  <!-- 功能菜单 -->
+  <view class="menu-list">
+    <view class="menu-item" bindtap="goToAI">
+      <view class="menu-left">
+        <text class="menu-icon">🤖</text>
+        <text class="menu-text">AI 师兄</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+
+    <view class="menu-item" bindtap="onShare">
+      <view class="menu-left">
+        <text class="menu-icon">📤</text>
+        <text class="menu-text">分享给好友</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+
+    <view class="menu-item" bindtap="showAbout">
+      <view class="menu-left">
+        <text class="menu-icon">ℹ️</text>
+        <text class="menu-text">关于电子木鱼</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 版本信息 -->
+  <view class="version-info">
+    <text class="version-text">电子木鱼 v1.0.0</text>
+    <text class="copyright-text">🙏 愿功德与你同在</text>
+  </view>
+</view>
