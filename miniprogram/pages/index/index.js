@@ -15,10 +15,7 @@ Page({
   data: {
     merit: 0,
     power: 0,
-    todayMerit: 0,
-    isTapping: false,
-    meritAnimating: false,
-    powerAnimating: false
+    todayMerit: 0
   },
 
   onLoad() {
@@ -54,13 +51,7 @@ Page({
    * 敲击木鱼 - 核心交互
    */
   onTapWoodfish() {
-    // 1. 触发敲击动画
-    this.setData({ isTapping: true });
-    setTimeout(() => {
-      this.setData({ isTapping: false });
-    }, 100);
-
-    // 2. 播放音效（懒加载，首次敲击时才初始化音频）
+    // 1. 播放音效（懒加载，首次敲击时才初始化音频）
     try {
       const audioCtx = app.getAudioContext();
       audioCtx.seek(0);
@@ -69,20 +60,11 @@ Page({
       // 音效文件不存在时静默处理
     }
 
-    // 3. 触发短震动
-    try {
-      wx.vibrateShort({ type: 'light' });
-    } catch (e) {
-      // 部分设备不支持
-    }
-
-    // 4. 更新计数
+    // 2. 更新计数
     const result = app.addMeritAndPower(1, 1);
     this.setData({
       merit: result.merit,
-      power: result.power,
-      meritAnimating: true,
-      powerAnimating: true
+      power: result.power
     });
 
     // 更新今日功德
@@ -90,12 +72,7 @@ Page({
     wx.setStorageSync('todayMerit', todayMerit);
     this.setData({ todayMerit });
 
-    // 计数器动画复位
-    setTimeout(() => {
-      this.setData({ meritAnimating: false, powerAnimating: false });
-    }, 200);
-
-    // 5. 每10次敲击后台同步一次到云数据库
+    // 3. 每10次敲击后台同步一次到云数据库
     if (result.merit % 10 === 0) {
       app.syncToCloud();
     }

@@ -6,7 +6,7 @@
 
   <!-- 木鱼敲击区域 -->
   <view class="woodfish-container" bindtap="onTapWoodfish">
-    <view class="woodfish-wrapper {{isTapping ? 'tapping' : ''}}">
+    <view class="woodfish-wrapper">
       <image src="/images/woodfish.png" mode="aspectFit" class="woodfish-img" />
     </view>
     <view class="tap-hint">轻敲木鱼 · 积攒功德</view>
@@ -17,7 +17,7 @@
     <view class="counter-item merit-counter">
       <text class="counter-label">⚜️ 功德</text>
       <view class="counter-value-wrap">
-        <text class="counter-value merit-value {{meritAnimating ? 'count-pop' : ''}}">{{merit}}</text>
+      <text class="counter-value merit-value">{{merit}}</text>
       </view>
       <text class="counter-desc">一敲一功德</text>
     </view>
@@ -25,7 +25,7 @@
     <view class="counter-item power-counter">
       <text class="counter-label">💖 念力</text>
       <view class="counter-value-wrap">
-        <text class="counter-value power-value {{powerAnimating ? 'count-pop' : ''}}">{{power}}</text>
+      <text class="counter-value power-value">{{power}}</text>
       </view>
       <text class="counter-desc">心诚则灵</text>
     </view>

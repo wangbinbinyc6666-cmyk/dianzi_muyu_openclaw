@@ -40,16 +40,26 @@ App({
    * 带超时的云函数调用
    * 避免云函数未部署时长时间阻塞（默认15秒 → 缩短为3秒）
    */
-  async callCloudFn(name, data = {}, timeout = 3000) {
+  callCloudFn(name, data = {}, timeout = 8000) {
     if (!this.globalData.cloudReady) {
-      throw new Error('云开发未初始化');
+      return Promise.reject(new Error('云开发未初始化'));
     }
-    return Promise.race([
-      wx.cloud.callFunction({ name, data }),
-      new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('云函数调用超时，请确认已部署')), timeout)
-      )
-    ]);
+
+    return new Promise((resolve, reject) => {
+      const timer = setTimeout(() => {
+        reject(new Error('云函数调用超时，请确认已部署'));
+      }, timeout);
+
+      wx.cloud.callFunction({ name, data })
+        .then(res => {
+          clearTimeout(timer);
+          resolve(res);
+        })
+        .catch(err => {
+          clearTimeout(timer);
+          reject(err);
+        });
+    });
   },
 
   /**
