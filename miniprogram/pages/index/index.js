@@ -15,7 +15,27 @@ Page({
 
   onLoad() {
     this.syncFromGlobal();
+    this.checkPrivacy();
+    this.loadTodayMerit();
+  },
 
+  checkPrivacy() {
+    // 检查隐私授权状态（微信审核必须）
+    if (wx.getPrivacySetting) {
+      wx.getPrivacySetting({
+        success: (res) => {
+          if (res.needAuthorization) {
+            // 用户首次使用，微信会自动在需要时弹出授权窗口
+            // 这里仅做记录，授权触发由 chooseAvatar / type="nickname" 组件自动完成
+            console.log('[隐私] 需要用户授权隐私协议');
+          }
+        },
+        fail: () => {}
+      });
+    }
+  },
+
+  loadTodayMerit() {
     const todayMerit = wx.getStorageSync('todayMerit') || 0;
     const todayDate = wx.getStorageSync('todayDate') || '';
     const now = new Date();

@@ -32,6 +32,15 @@ App({
 
     this.getUserProfile();
 
+    // 隐私授权监听（微信审核必须）
+    if (wx.onNeedPrivacyAuthorization) {
+      wx.onNeedPrivacyAuthorization((resolve) => {
+        // 用户触发隐私接口时，微信会自动弹出隐私协议窗口
+        // 此处仅做事件监听，实际弹窗由微信原生组件（chooseAvatar 等）自动触发
+        resolve({ event: 'agree' });
+      });
+    }
+
     // 预加载音效池：解决手机上首次敲击声音延迟大的问题
     this._initAudioPool();
   },

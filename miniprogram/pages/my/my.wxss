@@ -159,7 +159,7 @@
   align-items: center;
 }
 
-.menu-icon {
+.menu-text {
   font-size: 28rpx;
   color: #ddd;
 }

@@ -3,7 +3,9 @@
     "pages/index/index",
     "pages/ranking/ranking",
     "pages/ai-chat/chat",
-    "pages/my/my"
+    "pages/my/my",
+    "pages/privacy/privacy",
+    "pages/agreement/agreement"
   ],
   "window": {
     "backgroundTextStyle": "dark",

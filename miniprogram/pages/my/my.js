@@ -78,9 +78,15 @@ Page({
   },
 
   goToAI() {
-    wx.navigateTo({
-      url: '/pages/ai-chat/chat'
-    });
+    wx.navigateTo({ url: '/pages/ai-chat/chat' });
+  },
+
+  goToPrivacy() {
+    wx.navigateTo({ url: '/pages/privacy/privacy' });
+  },
+
+  goToAgreement() {
+    wx.navigateTo({ url: '/pages/agreement/agreement' });
   },
 
   onShare() {
