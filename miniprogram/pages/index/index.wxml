@@ -24,6 +24,15 @@
     </view>
   </view>
 
+  <!-- 自动敲击开关 -->
+  <view class="auto-tap-bar">
+    <view class="auto-tap-btn {{autoTapping ? 'active' : ''}}" bindtap="toggleAutoTap">
+      <text class="auto-tap-icon">{{autoTapping ? '⏸' : '▶'}}</text>
+      <text class="auto-tap-label">{{autoTapping ? '停止自动敲击' : '自动敲击'}}</text>
+    </view>
+    <text class="auto-tap-speed" wx:if="{{autoTapping}}">自动敲击中...</text>
+  </view>
+
   <view class="action-buttons">
     <view class="action-btn btn-ranking" bindtap="goToRanking" hover-class="btn-hover">
       <text class="btn-label">排行榜</text>

@@ -162,6 +162,58 @@
   color: #ccc;
 }
 
+/* ── 自动敲击开关 ── */
+.auto-tap-bar {
+  margin-top: 32rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.auto-tap-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  padding: 20rpx 48rpx;
+  border-radius: 48rpx;
+  background: #2a2a40;
+  border: 2rpx solid #444;
+  transition: all 0.3s;
+}
+
+.auto-tap-btn.active {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  border-color: #FFD700;
+}
+
+.auto-tap-icon {
+  font-size: 28rpx;
+}
+
+.auto-tap-label {
+  font-size: 26rpx;
+  color: #ccc;
+}
+
+.auto-tap-btn.active .auto-tap-label {
+  color: #1a1a2e;
+  font-weight: 600;
+}
+
+.auto-tap-speed {
+  font-size: 22rpx;
+  color: #FFD700;
+  opacity: 0.8;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
 /* ── 今日提示 ── */
 .daily-tip {
   margin-top: 40rpx;

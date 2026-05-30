@@ -10,7 +10,8 @@ Page({
     merit: 0,
     power: 0,
     todayMerit: 0,
-    tapping: false
+    tapping: false,
+    autoTapping: false
   },
 
   onLoad() {
@@ -54,6 +55,10 @@ Page({
     this.syncFromGlobal();
   },
 
+  onHide() {
+    this.stopAutoTap();
+  },
+
   syncFromGlobal() {
     this.setData({
       merit: app.globalData.merit,
@@ -83,6 +88,29 @@ Page({
     if (result.merit % 10 === 0) {
       app.syncToCloud();
     }
+  },
+
+  toggleAutoTap() {
+    if (this.data.autoTapping) {
+      this.stopAutoTap();
+    } else {
+      this.startAutoTap();
+    }
+  },
+
+  startAutoTap() {
+    this.setData({ autoTapping: true });
+    this._autoTimer = setInterval(() => {
+      this.onTapWoodfish();
+    }, 800);
+  },
+
+  stopAutoTap() {
+    if (this._autoTimer) {
+      clearInterval(this._autoTimer);
+      this._autoTimer = null;
+    }
+    this.setData({ autoTapping: false });
   },
 
   goToRanking() {
