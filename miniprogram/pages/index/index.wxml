@@ -31,9 +31,9 @@
   <view class="auto-tap-bar">
     <view class="auto-tap-btn {{autoTapping ? 'active' : ''}}" bindtap="toggleAutoTap">
       <text class="auto-tap-icon">{{autoTapping ? '⏸' : '▶'}}</text>
-      <text class="auto-tap-label">{{autoTapping ? '停止自动敲击' : '自动敲击'}}</text>
+      <text class="auto-tap-label">{{autoTapping ? '停止积累功德' : '自动积累功德'}}</text>
     </view>
-    <text class="auto-tap-speed" wx:if="{{autoTapping}}">自动敲击中...</text>
+    <text class="auto-tap-speed" wx:if="{{autoTapping}}">积累功德中...</text>
   </view>
 
   <view class="action-buttons">
