@@ -25,10 +25,6 @@
   </view>
 
   <view class="action-buttons">
-    <view class="action-btn btn-ai" bindtap="goToAI" hover-class="btn-hover">
-      <text class="btn-label">AI 师兄</text>
-      <text class="btn-desc">智能答疑</text>
-    </view>
     <view class="action-btn btn-ranking" bindtap="goToRanking" hover-class="btn-hover">
       <text class="btn-label">排行榜</text>
       <text class="btn-desc">修行精进</text>

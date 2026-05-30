@@ -77,10 +77,6 @@ Page({
     this.setData({ nickName });
   },
 
-  goToAI() {
-    wx.navigateTo({ url: '/pages/ai-chat/chat' });
-  },
-
   goToPrivacy() {
     wx.navigateTo({ url: '/pages/privacy/privacy' });
   },

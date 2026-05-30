@@ -85,10 +85,6 @@ Page({
     }
   },
 
-  goToAI() {
-    wx.navigateTo({ url: '/pages/ai-chat/chat' });
-  },
-
   goToRanking() {
     wx.switchTab({ url: '/pages/ranking/ranking' });
   },
