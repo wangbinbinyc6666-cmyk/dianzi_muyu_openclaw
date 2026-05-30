@@ -4,6 +4,9 @@
   </view>
 
   <view class="woodfish-container" bindtap="onTapWoodfish">
+    <view class="mallet-wrapper {{tapping ? 'mallet-strike' : ''}}">
+      <image src="/images/mallet.png" mode="aspectFit" class="mallet-img" />
+    </view>
     <view class="woodfish-wrapper {{tapping ? 'pressed' : ''}}">
       <image src="/images/woodfish.png" mode="aspectFit" class="woodfish-img" />
     </view>

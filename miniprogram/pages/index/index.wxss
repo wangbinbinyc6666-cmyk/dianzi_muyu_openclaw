@@ -31,6 +31,7 @@
 
 /* ── 木鱼区域 ── */
 .woodfish-container {
+  position: relative;
   margin-top: 80rpx;
   display: flex;
   flex-direction: column;
@@ -58,6 +59,30 @@
   color: #666;
   font-size: 24rpx;
   letter-spacing: 2rpx;
+}
+
+/* ── 木鱼棒 ── */
+.mallet-wrapper {
+  position: absolute;
+  top: -60rpx;
+  left: 0rpx;
+  width: 240rpx;
+  height: 240rpx;
+  z-index: 3;
+  pointer-events: none;
+  transform: rotate(5deg);
+  transform-origin: 50% 50%;
+  transition: transform 0.1s ease-out;
+}
+
+.mallet-wrapper.mallet-strike {
+  transform: rotate(35deg);
+  transition: transform 0.08s ease-in;
+}
+
+.mallet-img {
+  width: 240rpx;
+  height: 240rpx;
 }
 
 /* ── 计数器 ── */
