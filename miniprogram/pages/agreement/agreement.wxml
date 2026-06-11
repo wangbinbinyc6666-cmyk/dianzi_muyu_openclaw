@@ -2,37 +2,46 @@
   <view class="legal-content">
     <view class="legal-section">
       <text class="legal-title">用户协议</text>
-      <text class="legal-update-date">更新日期：2026年5月27日</text>
+      <text class="legal-update-date">更新日期：2026年6月11日</text>
       <text class="legal-body-text">欢迎使用电子木鱼小程序。在使用本小程序前，请仔细阅读以下条款。使用本小程序即表示您同意本协议的全部内容。</text>
     </view>
 
     <view class="legal-section">
       <text class="legal-subtitle">一、服务说明</text>
-      <text class="legal-body-text">电子木鱼是一款休闲娱乐类微信小程序，提供模拟敲击木鱼、功德计数、排行榜排名、AI 对话等功能。所有功能仅供娱乐，不涉及真实宗教仪式或金钱交易。</text>
+      <text class="legal-body-text">电子木鱼是一款休闲娱乐类微信小程序，提供模拟敲击木鱼、功德计数、排行榜排名、自动积累功德等功能。所有功能仅供娱乐放松使用，不涉及真实宗教仪式、金钱交易或任何具有实际价值的内容。</text>
+      <text class="legal-body-text">本小程序中的"功德""念力"等数值均为虚拟数据，仅供娱乐，不具有任何真实货币价值或实际效用。</text>
     </view>
 
     <view class="legal-section">
       <text class="legal-subtitle">二、用户行为规范</text>
       <text class="legal-body-text">1. 您承诺不会利用本小程序从事任何违法违规活动。</text>
       <text class="legal-body-text">2. 在排行榜中展示的昵称和头像应符合公序良俗，不得包含违法或不当内容。</text>
-      <text class="legal-body-text">3. AI 对话功能仅用于休闲交流，请勿输入违法违规内容。</text>
-      <text class="legal-body-text">4. 不得通过任何技术手段干扰排行榜数据的真实性。</text>
+      <text class="legal-body-text">3. 不得通过技术手段（包括但不限于使用脚本、外挂、修改数据等方式）干扰排行榜数据的真实性。</text>
+      <text class="legal-body-text">4. 自动积累功德功能仅为本小程序提供的娱乐功能，请勿利用该功能恶意刷榜。</text>
     </view>
 
     <view class="legal-section">
-      <text class="legal-subtitle">三、免责声明</text>
-      <text class="legal-body-text">1. 本小程序提供的 AI 回复内容由第三方大模型生成，仅供参考，不构成任何建议。</text>
+      <text class="legal-subtitle">三、自动积累功德功能说明</text>
+      <text class="legal-body-text">1. 自动积累功德功能为小程序内置的娱乐功能，开启后将自动模拟敲击木鱼并增加功德值。</text>
+      <text class="legal-body-text">2. 为防止滥用，单次自动积累设有上限（100次），达到上限后需手动重新开启。</text>
+      <text class="legal-body-text">3. 自动积累产生的功德值与手动敲击产生的功德值性质相同，均为虚拟娱乐数据，不具有任何实际价值。</text>
+      <text class="legal-body-text">4. 如我们发现异常刷榜行为，有权在不通知的情况下清除相关数据。</text>
+    </view>
+
+    <view class="legal-section">
+      <text class="legal-subtitle">四、免责声明</text>
+      <text class="legal-body-text">1. 本小程序所有内容（包括界面、文案、音效等）仅供娱乐，不构成任何宗教、医疗或其他专业建议。</text>
       <text class="legal-body-text">2. 云服务可能出现暂时不可用的情况，您的数据会优先保存在本地设备中。</text>
       <text class="legal-body-text">3. 我们保留在不事先通知的情况下更新本协议的权利。</text>
     </view>
 
     <view class="legal-section">
-      <text class="legal-subtitle">四、知识产权</text>
+      <text class="legal-subtitle">五、知识产权</text>
       <text class="legal-body-text">本小程序的所有内容（包括但不限于界面设计、图标、音效、代码）的知识产权归开发者所有。未经许可，不得复制、修改或传播。</text>
     </view>
 
     <view class="legal-section">
-      <text class="legal-subtitle">五、协议修改</text>
+      <text class="legal-subtitle">六、协议修改</text>
       <text class="legal-body-text">我们可能适时修订本协议。修订后的协议将在本页面发布，继续使用即视为接受修改后的协议。</text>
     </view>
   </view>

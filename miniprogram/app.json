@@ -38,6 +38,7 @@
       }
     ]
   },
+  "__usePrivacyCheck__": true,
   "sitemapLocation": "sitemap.json",
   "style": "v2"
 }

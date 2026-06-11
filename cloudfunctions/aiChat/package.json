@@ -1,9 +1,0 @@
-{
-  "name": "aiChat",
-  "version": "1.0.0",
-  "description": "AI 对话云函数 - 代理 DeepSeek API",
-  "main": "index.js",
-  "dependencies": {
-    "wx-server-sdk": "~2.6.3"
-  }
-}

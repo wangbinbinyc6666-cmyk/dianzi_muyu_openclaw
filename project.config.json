@@ -27,7 +27,7 @@
   },
   "appid": "wx1bb3f53b85e6c173",
   "projectname": "电子木鱼",
-  "description": "电子木鱼 - 积攒功德，对话AI师兄",
+  "description": "电子木鱼 - 模拟敲木鱼积攒功德的禅意休闲小程序",
   "compileType": "miniprogram",
   "libVersion": "3.3.4",
   "packOptions": {

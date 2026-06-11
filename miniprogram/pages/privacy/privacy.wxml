@@ -2,45 +2,64 @@
   <view class="legal-content">
     <view class="legal-section">
       <text class="legal-title">隐私政策</text>
-      <text class="legal-update-date">更新日期：2026年5月27日</text>
-      <text class="legal-body-text">电子木鱼（以下简称"本小程序"）高度重视用户隐私保护。本隐私政策旨在向您说明我们如何收集、使用和保护您的个人信息。</text>
+      <text class="legal-update-date">更新日期：2026年6月11日</text>
+      <text class="legal-body-text">电子木鱼（以下简称"本小程序"）由个人开发者运营，高度重视用户隐私保护。本隐私政策旨在向您说明我们如何收集、使用、存储和保护您的个人信息。请您在使用本小程序前仔细阅读本政策。</text>
     </view>
 
     <view class="legal-section">
       <text class="legal-subtitle">一、我们收集的信息</text>
-      <text class="legal-body-text">1. 头像与昵称：当您自愿设置头像或输入昵称时，我们会将这些信息存储在本地设备及云数据库中，用于在排行榜中展示您的修行成果。</text>
-      <text class="legal-body-text">2. 功德与念力数据：您在敲击木鱼时产生的功德值和念力值，会保存在本地设备和云数据库中，用于排行榜排名。</text>
-      <text class="legal-body-text">3. 微信 OpenID：通过微信云开发自动获取，仅用于识别您在排行榜中的身份，不会关联到您的微信账号信息。</text>
+      <text class="legal-body-text">为提供完整的服务体验，本小程序会收集以下信息：</text>
+      <text class="legal-body-text">1. 微信 OpenID：通过微信云开发自动获取，用于识别您的用户身份，确保您的数据能够正确关联到您本人。OpenID 是微信为每个用户生成的唯一标识符，不会关联到您的真实身份信息。</text>
+      <text class="legal-body-text">2. 头像与昵称：当您主动点击头像区域选择头像，或在昵称输入框中设置昵称时，我们会收集这些信息。头像和昵称用于在排行榜中展示您的身份信息。您完全可以不提供头像和昵称，以匿名方式使用本小程序的全部功能。</text>
+      <text class="legal-body-text">3. 功德值与念力值：您在敲击木鱼或使用自动积累功德功能时产生的数值数据，会保存在本地设备和云数据库中。功德值和念力值是本小程序的核心数据，用于排行榜排名展示。</text>
+      <text class="legal-body-text">4. 本地存储数据：本小程序会在您的设备本地存储功德值、念力值、今日敲击次数、用户信息等数据，用于离线状态下仍可正常使用。</text>
     </view>
 
     <view class="legal-section">
-      <text class="legal-subtitle">二、信息的使用</text>
-      <text class="legal-body-text">1. 您的头像、昵称、功德值和念力值会展示在排行榜中，其他用户可见。</text>
-      <text class="legal-body-text">2. 我们不会将您的信息用于任何商业用途，不会分享给第三方。</text>
-      <text class="legal-body-text">3. 所有数据存储在微信云开发环境中，受微信平台安全保护。</text>
+      <text class="legal-subtitle">二、信息的使用方式</text>
+      <text class="legal-body-text">1. 您的头像、昵称、功德值和念力值会展示在排行榜页面中，其他用户可见。这是本小程序的社交功能核心。</text>
+      <text class="legal-body-text">2. 功德值和念力值仅用于本小程序内的排行榜排名展示，不具有任何真实货币价值或实际效用。</text>
+      <text class="legal-body-text">3. 我们不会将您的个人信息用于任何商业用途，不会出售、出租或以任何方式分享给第三方。</text>
+      <text class="legal-body-text">4. 我们不会将您的信息用于广告投放或个性化推荐等营销目的。</text>
     </view>
 
     <view class="legal-section">
-      <text class="legal-subtitle">三、信息的存储与保护</text>
-      <text class="legal-body-text">1. 功德和念力数据优先存储在您的设备本地，同时同步到云数据库作为备份。</text>
-      <text class="legal-body-text">2. 云数据库仅您本人和本小程序可访问，采用微信云开发的安全机制。</text>
+      <text class="legal-subtitle">三、数据的存储与保护</text>
+      <text class="legal-body-text">1. 本地存储：功德值、念力值等核心数据优先存储在您的设备本地（使用 wx.setStorageSync），即使云服务不可用也能正常使用。</text>
+      <text class="legal-body-text">2. 云端存储：本小程序使用微信云开发服务（腾讯云），您的数据会同步到云数据库作为备份。微信云开发受微信平台安全体系保护，数据安全性由微信平台保障。</text>
+      <text class="legal-body-text">3. 数据库权限设置为"仅创建者可读写"，即只有您本人和本小程序的云函数可以访问您的数据记录。</text>
+      <text class="legal-body-text">4. 本小程序采用增量同步策略，每 20 次敲击批量上报一次数据，减少网络请求次数，提高效率和安全性。</text>
     </view>
 
     <view class="legal-section">
-      <text class="legal-subtitle">四、您的权利</text>
-      <text class="legal-body-text">1. 您可以选择不设置头像和昵称，以匿名方式使用本小程序。</text>
-      <text class="legal-body-text">2. 如需删除您的数据，可通过小程序内的联系方式与我们取得联系。</text>
+      <text class="legal-subtitle">四、自动积累功德功能与数据</text>
+      <text class="legal-body-text">1. 本小程序提供"自动积累功德"功能，开启后会自动模拟敲击木鱼并产生功德数据。该功能产生的数据与手动敲击数据性质完全相同。</text>
+      <text class="legal-body-text">2. 自动积累功能设有单次上限（100次），防止数据异常增长。</text>
+      <text class="legal-body-text">3. 自动积累过程中，数据同样会同步到云端存储。</text>
     </view>
 
     <view class="legal-section">
-      <text class="legal-subtitle">五、政策更新</text>
-      <text class="legal-body-text">本隐私政策可能适时更新。更新后的政策将在本页面发布，敬请留意。</text>
+      <text class="legal-subtitle">五、您的权利</text>
+      <text class="legal-body-text">1. 您可以选择不设置头像和昵称，以匿名方式使用本小程序的全部功能。</text>
+      <text class="legal-body-text">2. 您可以随时在微信设置中关闭本小程序的授权，关闭后本小程序将无法继续收集您的任何信息。</text>
+      <text class="legal-body-text">3. 如需删除您的云端数据（包括功德值、念力值、头像、昵称等），请通过本小程序"我的"→"关于电子木鱼"获取联系方式与我们取得联系，我们将在收到请求后合理期限内完成数据删除。</text>
+      <text class="legal-body-text">4. 您也可以自行清除本小程序的本地缓存数据（通过微信设置→通用→存储空间→清理缓存）。</text>
     </view>
 
     <view class="legal-section">
-      <text class="legal-subtitle">六、联系方式</text>
-      <text class="legal-body-text">如有任何疑问或建议，请通过以下方式联系我们：</text>
-      <text class="legal-body-text">在小程序内点击"我的"→"关于电子木鱼"获取相关信息。</text>
+      <text class="legal-subtitle">六、未成年人保护</text>
+      <text class="legal-body-text">本小程序为休闲娱乐类应用，不涉及任何不适合未成年人的内容。未成年人在监护人同意的前提下可以使用本小程序。我们不会故意收集未成年人的个人信息。</text>
+    </view>
+
+    <view class="legal-section">
+      <text class="legal-subtitle">七、政策更新</text>
+      <text class="legal-body-text">本隐私政策可能适时更新。更新后的政策将在本小程序"我的"→"隐私政策"页面发布，建议您定期查看。如您不同意更新后的政策内容，可以选择停止使用本小程序。</text>
+    </view>
+
+    <view class="legal-section">
+      <text class="legal-subtitle">八、联系我们</text>
+      <text class="legal-body-text">如有任何关于隐私保护或本政策的疑问，请通过以下方式联系我们：</text>
+      <text class="legal-body-text">在小程序内点击"我的"→"关于电子木鱼"获取开发者联系方式。</text>
     </view>
   </view>
 </view>
