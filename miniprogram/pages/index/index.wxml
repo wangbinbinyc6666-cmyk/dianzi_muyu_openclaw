@@ -23,25 +23,25 @@
     </view>
   </view>
 
-  <!-- ═══ 分享底部弹窗 ═══ -->
-  <view class="share-overlay" wx:if="{{showShareSheet}}" catchtap="closeShareSheet">
-    <view class="share-sheet" catchtap="">
-      <view class="sheet-title">分享功德 · 广结善缘</view>
-      <view class="sheet-buttons">
-        <view class="sheet-btn" bindtap="onNativeShare" hover-class="btn-hover">
-          <text class="sheet-btn-icon">📤</text>
-          <text class="sheet-btn-text">分享给好友</text>
-        </view>
-        <view class="sheet-btn" bindtap="onShareTimelineClick" hover-class="btn-hover">
-          <text class="sheet-btn-icon">🌐</text>
-          <text class="sheet-btn-text">分享到朋友圈</text>
-        </view>
-        <view class="sheet-btn" bindtap="onDedicateMerit" hover-class="btn-hover">
-          <text class="sheet-btn-icon">🙏</text>
-          <text class="sheet-btn-text">功德回向</text>
-        </view>
+  <!-- ═══ 功德回向输入弹窗 ═══ -->
+  <view class="dedicate-overlay" wx:if="{{showDedicatePopup}}" catchtap="closeDedicatePopup">
+    <view class="dedicate-popup" catchtap="">
+      <view class="dedicate-popup-title">功德回向 🙏</view>
+      <view class="dedicate-popup-desc">输入回向对象的名字，将功德回向给 TA</view>
+      <input
+        class="dedicate-popup-input"
+        placeholder="例如：父母、朋友"
+        placeholder-style="color:#666"
+        value="{{dedicateInputValue}}"
+        bindinput="onDedicateInput"
+        focus="{{showDedicatePopup}}"
+        confirm-type="done"
+        bindconfirm="onDedicateMeritSubmit"
+      />
+      <view class="dedicate-popup-buttons">
+        <view class="dedicate-popup-btn cancel" bindtap="closeDedicatePopup">取消</view>
+        <view class="dedicate-popup-btn confirm" bindtap="onDedicateMeritSubmit">回向</view>
       </view>
-      <view class="sheet-close" bindtap="closeShareSheet">取消</view>
     </view>
   </view>
 
@@ -96,15 +96,15 @@
       <text class="btn-label">🏆 排行榜</text>
       <text class="btn-desc">修行精进</text>
     </view>
-    <view class="action-btn btn-share" bindtap="onShare" hover-class="btn-hover">
+    <button class="action-btn btn-share share-native-btn" open-type="share">
       <text class="btn-label">📤 分享</text>
       <text class="btn-desc">广结善缘</text>
-    </view>
+    </button>
   </view>
 
   <!-- ═══ 功德回向 + 今日进度 ═══ -->
   <view class="bottom-actions">
-    <view class="dedicate-btn" bindtap="onDedicateMerit" hover-class="btn-hover">
+    <view class="dedicate-btn" bindtap="showDedicatePopup" hover-class="btn-hover">
       <text class="dedicate-icon">🙏</text>
       <text class="dedicate-text">功德回向</text>
       <text class="dedicate-sub">为他人祈福</text>

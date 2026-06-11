@@ -64,7 +64,8 @@ Page({
     dailyGoal: 30,
     rankTitle: '初来乍到',
     dedicateTarget: '',
-    showShareSheet: false
+    showDedicatePopup: false,
+    dedicateInputValue: ''
   },
 
   _autoTapSession: 0,
@@ -77,6 +78,7 @@ Page({
     this._autoTapSession = 0;
     this.loadCheckInState();
     this.updateRankTitle();
+    this._setupShareMenu();
 
     // 追踪分享来源
     if (options && options.from) {
@@ -293,7 +295,9 @@ Page({
             cancelText: '继续修行',
             confirmColor: '#FFD700',
             success: (res) => {
-              if (res.confirm) this.onShare();
+              if (res.confirm) {
+                wx.showToast({ title: '点击右下角「...」可分享好友', icon: 'none', duration: 2500 });
+              }
             }
           });
         }, 500);
@@ -339,53 +343,69 @@ Page({
   },
 
   // ──────────────────────────────────────────
-  // 分享（增强版）
+  // 分享菜单启用
   // ──────────────────────────────────────────
 
-  onShare() {
-    this.setData({ showShareSheet: true });
+  _setupShareMenu() {
+    try {
+      wx.showShareMenu({
+        withShareTicket: true,
+        menus: ['shareAppMessage', 'shareTimeline']
+      });
+    } catch (e) { /* 兼容旧版本 */ }
+    try {
+      wx.updateShareMenu({
+        withShareTicket: true,
+        isUpdatableMessage: false,
+        menus: ['shareAppMessage', 'shareTimeline']
+      });
+    } catch (e) { /* 兼容旧版本 */ }
   },
 
-  closeShareSheet() {
-    this.setData({ showShareSheet: false });
+  // ──────────────────────────────────────────
+  // 功德回向弹窗
+  // ──────────────────────────────────────────
+
+  showDedicatePopup() {
+    this.setData({ showDedicatePopup: true, dedicateInputValue: '' });
   },
 
-  onNativeShare() {
-    this.setData({ showShareSheet: false, dedicateTarget: '' });
-    wx.showShareMenu({
-      withShareTicket: true,
-      menus: ['shareAppMessage', 'shareTimeline']
+  closeDedicatePopup() {
+    this.setData({ showDedicatePopup: false, dedicateInputValue: '' });
+  },
+
+  onDedicateInput(e) {
+    this.setData({ dedicateInputValue: e.detail.value });
+  },
+
+  onDedicateMeritSubmit() {
+    const target = (this.data.dedicateInputValue || '').trim();
+    if (!target) {
+      wx.showToast({ title: '请输入回向对象', icon: 'none' });
+      return;
+    }
+
+    // 保存回向记录到 localStorage
+    const records = wx.getStorageSync('dedicateRecords') || [];
+    records.unshift({
+      target,
+      time: Date.now(),
+      merit: this.data.merit
     });
-  },
+    // 最多保留 50 条
+    if (records.length > 50) records.length = 50;
+    wx.setStorageSync('dedicateRecords', records);
 
-  onShareTimelineClick() {
-    this.setData({ showShareSheet: false, dedicateTarget: '' });
-    wx.showShareMenu({
-      withShareTicket: true,
-      menus: ['shareTimeline']
+    this.setData({
+      dedicateTarget: target,
+      showDedicatePopup: false,
+      dedicateInputValue: ''
     });
-  },
 
-  onDedicateMerit() {
-    this.setData({ showShareSheet: false });
-    wx.showModal({
-      title: '功德回向',
-      content: '为他人敲木鱼，将功德回向给TA 🙏\n\n请输入回向对象的名字',
-      placeholderText: '例如：父母、朋友',
-      confirmText: '生成回向卡片',
-      confirmColor: '#FFD700',
-      success: (res) => {
-        if (res.confirm && res.content) {
-          const target = res.content.replace('为他人敲木鱼，将功德回向给TA 🙏\n\n请输入回向对象的名字', '').trim();
-          if (target) {
-            this.setData({ dedicateTarget: target });
-            wx.showShareMenu({
-              withShareTicket: true,
-              menus: ['shareAppMessage', 'shareTimeline']
-            });
-          }
-        }
-      }
+    wx.showToast({
+      title: `已回向给 ${target} 🙏`,
+      icon: 'none',
+      duration: 2000
     });
   },
 
