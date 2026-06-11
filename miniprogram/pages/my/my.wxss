@@ -81,7 +81,7 @@
 .profile-signature {
   margin-top: 8rpx;
   font-size: 24rpx;
-  color: #888;
+  color: #999;
 }
 
 /* ── 功德统计卡片 ── */
@@ -126,7 +126,7 @@
 
 .stat-label {
   font-size: 24rpx;
-  color: #888;
+  color: #999;
 }
 
 /* ── 功能菜单 ── */
@@ -166,7 +166,7 @@
 
 .menu-arrow {
   font-size: 36rpx;
-  color: #555;
+  color: #888;
 }
 
 /* ── 版本信息 ── */
@@ -186,5 +186,25 @@
 .copyright-text {
   margin-top: 8rpx;
   font-size: 22rpx;
-  color: #444;
+  color: #666;
+}
+
+/* ── 加载动画 ── */
+.loading-spinner {
+  width: 60rpx;
+  height: 60rpx;
+  border: 4rpx solid rgba(255, 215, 0, 0.2);
+  border-top-color: #FFD700;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 80rpx auto 20rpx;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── 菜单项过渡 ── */
+.menu-item {
+  transition: background 0.15s ease;
 }

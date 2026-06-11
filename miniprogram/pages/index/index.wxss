@@ -41,12 +41,13 @@
 .woodfish-wrapper {
   width: 400rpx;
   height: 400rpx;
-  transition: opacity 0.12s ease-out;
+  transition: opacity 0.12s ease-out, transform 0.12s ease-out;
 }
 
-/* 按压反馈：仅透明度变化，无布局偏移 */
+/* 按压反馈：亮度变化 + 微缩放（不涉及布局偏移） */
 .woodfish-wrapper.pressed {
-  opacity: 0.75;
+  opacity: 0.78;
+  transform: scale(0.96);
 }
 
 .woodfish-img {
@@ -56,7 +57,7 @@
 
 .tap-hint {
   margin-top: 24rpx;
-  color: #666;
+  color: #888;
   font-size: 24rpx;
   letter-spacing: 2rpx;
 }
@@ -135,7 +136,7 @@
 
 .counter-desc {
   margin-top: 8rpx;
-  color: #555;
+  color: #888;
   font-size: 20rpx;
 }
 
@@ -155,10 +156,12 @@
   justify-content: center;
   padding: 32rpx 12rpx;
   border-radius: 20rpx;
+  transition: opacity 0.2s ease, transform 0.15s ease;
 }
 
 .btn-hover {
   opacity: 0.8;
+  transform: scale(0.97);
 }
 
 .btn-label {
@@ -172,11 +175,6 @@
   opacity: 0.7;
 }
 
-.btn-ai {
-  background: linear-gradient(135deg, #FF69B4, #FF1493);
-  color: #fff;
-}
-
 .btn-ranking {
   background: linear-gradient(135deg, #FFD700, #FFA500);
   color: #1a1a2e;
@@ -184,7 +182,7 @@
 
 .btn-share {
   background: #2a2a40;
-  color: #ccc;
+  color: #ddd;
 }
 
 /* ── 自动敲击开关 ── */
@@ -204,8 +202,8 @@
   padding: 20rpx 48rpx;
   border-radius: 48rpx;
   background: #2a2a40;
-  border: 2rpx solid #444;
-  transition: all 0.3s;
+  border: 2rpx solid #555;
+  transition: all 0.3s ease;
 }
 
 .auto-tap-btn.active {
@@ -219,7 +217,7 @@
 
 .auto-tap-label {
   font-size: 26rpx;
-  color: #ccc;
+  color: #ddd;
 }
 
 .auto-tap-btn.active .auto-tap-label {
@@ -249,11 +247,26 @@
 }
 
 .tip-text {
-  color: #888;
+  color: #999;
   font-size: 22rpx;
 }
 
-/* ── 底部安全区 ── */
+/* ── 底部安全区 ─ */
 .safe-bottom {
-  height: 32rpx;
+  height: 120rpx;
+}
+
+/* ── 计数器数值变化动画 ── */
+.counter-value {
+  transition: transform 0.2s ease;
+}
+
+.counter-value.bump {
+  animation: numberBump 0.2s ease-out;
+}
+
+@keyframes numberBump {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
 }

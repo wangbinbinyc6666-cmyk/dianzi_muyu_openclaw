@@ -1,8 +1,17 @@
 /**
  * 云函数：addMerit
- * 功能：增加用户功德值和念力值
+ * 功能：增加用户功德值和念力值，同时更新可选的用户资料字段
  *
- * 调用方式：wx.cloud.callFunction({ name: 'addMerit', data: { merit: 1, power: 1 } })
+ * 调用方式：
+ *   wx.cloud.callFunction({
+ *     name: 'addMerit',
+ *     data: {
+ *       merit: 1,         // 增量（非累计值！）
+ *       power: 1,         // 增量
+ *       avatarUrl: '...', // 可选，用户头像
+ *       nickName: '...'   // 可选，用户昵称
+ *     }
+ *   })
  *
  * 数据库集合：users
  * 权限设置：在云开发控制台 → 数据库 → users → 权限设置
@@ -19,8 +28,21 @@ exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext();
   const openid = wxContext.OPENID;
 
-  // 从调用参数中获取要增加的数值，默认为1
+  // 增量值（默认为1）
   const { merit = 1, power = 1 } = event;
+  // 可选的用户资料字段
+  const { avatarUrl, nickName } = event;
+
+  // 构建更新数据：始终包含增量字段
+  const updateData = {
+    merit: _.inc(merit),
+    power: _.inc(power),
+    updateTime: Date.now()
+  };
+
+  // 如果有头像/昵称变更，附加到更新数据
+  if (avatarUrl) updateData.avatarUrl = avatarUrl;
+  if (nickName) updateData.nickName = nickName;
 
   try {
     // 查询用户是否已在数据库中存在
@@ -29,16 +51,10 @@ exports.main = async (event, context) => {
       .get();
 
     if (userResult.data.length > 0) {
-      // ── 用户已存在：累加功德和念力 ──
+      // ── 用户已存在：累加功德和念力，更新可选字段 ──
       await db.collection('users')
         .where({ _openid: openid })
-        .update({
-          data: {
-            merit: _.inc(merit),
-            power: _.inc(power),
-            updateTime: Date.now()
-          }
-        });
+        .update({ data: updateData });
     } else {
       // ── 新用户：创建记录 ──
       await db.collection('users').add({
@@ -46,8 +62,8 @@ exports.main = async (event, context) => {
           _openid: openid,
           merit: merit,
           power: power,
-          nickName: '',
-          avatarUrl: '',
+          nickName: nickName || '',
+          avatarUrl: avatarUrl || '',
           createTime: Date.now(),
           updateTime: Date.now()
         }

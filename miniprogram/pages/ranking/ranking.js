@@ -9,7 +9,9 @@ Page({
   data: {
     rankingList: [],
     myRank: null,
-    loading: true
+    loading: true,
+    loadError: false,
+    refreshing: false
   },
 
   onShow() {
@@ -17,7 +19,7 @@ Page({
   },
 
   async loadRanking() {
-    this.setData({ loading: true });
+    this.setData({ loading: true, refreshing: true });
 
     try {
       const res = await app.callCloudFn('getMeritRanking', { limit: 100 });
@@ -39,13 +41,47 @@ Page({
           merit: myItem.merit,
           power: myItem.power || 0
         } : null,
-        loading: false
+        loading: false,
+        loadError: false,
+        refreshing: false
       });
+
+      // 缓存排行榜数据到本地，供「我的」页面复用（避免重复调用云函数）
+      wx.setStorageSync('rankingCache', JSON.stringify({
+        list: rankingList,
+        myRank: this.data.myRank,
+        timestamp: Date.now()
+      }));
     } catch (err) {
       console.error('[排行榜] 加载失败:', err.message);
-      this.setData({ loading: false });
-      this.fallbackToLocal();
+      this.setData({ loading: false, loadError: true, refreshing: false });
+      // 尝试从缓存恢复，缓存可用时隐藏错误态
+      const hasCache = this._loadFromCache();
+      if (hasCache) {
+        this.setData({ loadError: false });
+      }
     }
+  },
+
+  /**
+   * 从本地缓存加载排行榜数据（云函数不可用时的降级方案）
+   */
+  _loadFromCache() {
+    try {
+      const cache = wx.getStorageSync('rankingCache');
+      if (cache) {
+        const data = JSON.parse(cache);
+        this.setData({
+          rankingList: data.list || [],
+          myRank: data.myRank || null
+        });
+        return true;
+      }
+    } catch (e) {
+      // 缓存解析失败，继续走 fallback
+    }
+    this.fallbackToLocal();
+    return true; // fallback 也有数据
   },
 
   fallbackToLocal() {
@@ -63,8 +99,6 @@ Page({
         power: app.globalData.power
       }
     });
-
-    // 不再弹 toast，改为在页面内显示本地模式
   },
 
   onPullDownRefresh() {

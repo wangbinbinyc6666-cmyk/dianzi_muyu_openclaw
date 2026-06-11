@@ -20,15 +20,21 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "木鱼"
+        "text": "木鱼",
+        "iconPath": "images/tab-icons/tab-fish.png",
+        "selectedIconPath": "images/tab-icons/tab-fish-selected.png"
       },
       {
         "pagePath": "pages/ranking/ranking",
-        "text": "排行榜"
+        "text": "排行榜",
+        "iconPath": "images/tab-icons/tab-rank.png",
+        "selectedIconPath": "images/tab-icons/tab-rank-selected.png"
       },
       {
         "pagePath": "pages/my/my",
-        "text": "我的"
+        "text": "我的",
+        "iconPath": "images/tab-icons/tab-my.png",
+        "selectedIconPath": "images/tab-icons/tab-my-selected.png"
       }
     ]
   },

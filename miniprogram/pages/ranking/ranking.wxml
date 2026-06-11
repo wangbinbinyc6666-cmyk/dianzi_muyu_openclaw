@@ -21,14 +21,23 @@
   </view>
 
   <!-- 空状态 -->
-  <view class="empty-state" wx:if="{{!loading && rankingList.length === 0}}">
+  <view class="empty-state" wx:if="{{!loading && !loadError && rankingList.length === 0}}">
     <text class="empty-icon">📜</text>
     <text class="empty-text">暂无排行数据</text>
     <text class="empty-hint">快去敲木鱼成为第一名吧！</text>
   </view>
 
+  <!-- 网络错误状态 -->
+  <view class="error-state" wx:if="{{loadError && rankingList.length === 0}}">
+    <text class="error-icon">⚠️</text>
+    <text class="error-text">网络连接失败，请稍后重试</text>
+    <view class="error-retry" bindtap="loadRanking">
+      <text>重新加载</text>
+    </view>
+  </view>
+
   <!-- 排行榜列表 -->
-  <view class="ranking-list" wx:if="{{!loading && rankingList.length > 0}}">
+  <view class="ranking-list" wx:if="{{!loading && !loadError && rankingList.length > 0}}">
     <view
       class="rank-item {{item.isMe ? 'is-me' : ''}} {{item.rank <= 3 ? 'top-' + item.rank : ''}}"
       wx:for="{{rankingList}}"
@@ -44,13 +53,8 @@
 
       <!-- 用户头像 -->
       <view class="rank-avatar">
-        <!--
-          头像占位符：使用微信头像或默认图标
-          替换方式：在云数据库中存储 avatarUrl 字段后，
-          将下面的 text 替换为：
-          <image src="{{item.avatarUrl}}" mode="aspectFill" class="avatar-img" />
-        -->
-        <text class="avatar-placeholder">🧘</text>
+        <image wx:if="{{item.avatarUrl}}" src="{{item.avatarUrl}}" mode="aspectFill" class="avatar-img" />
+        <text wx:else class="avatar-placeholder">🧘</text>
       </view>
 
       <!-- 昵称和功德 -->
@@ -72,8 +76,8 @@
   </view>
 
   <!-- 刷新按钮 -->
-  <view class="refresh-btn" bindtap="loadRanking" wx:if="{{!loading}}">
+  <view class="refresh-btn {{refreshing ? 'refresh-spin' : ''}}" bindtap="loadRanking" wx:if="{{!loading}}">
     <text class="refresh-icon">🔄</text>
-    <text class="refresh-text">刷新排行</text>
+    <text class="refresh-text">{{refreshing ? '刷新中...' : '刷新排行'}}</text>
   </view>
 </view>

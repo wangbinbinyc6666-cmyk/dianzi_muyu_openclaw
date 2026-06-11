@@ -10,7 +10,9 @@ App({
     userInfo: null,
     cloudReady: false,
     audioReady: false,
-    envId: 'cloud1-d1g4xxsut33977fca'
+    envId: 'cloud1-d1g4xxsut33977fca',
+    pendingSyncMerit: 0,
+    pendingSyncPower: 0
   },
 
   _audioPool: [],
@@ -33,11 +35,12 @@ App({
     this.getUserProfile();
 
     // 隐私授权监听（微信审核必须）
+    // 不自动 resolve，由微信原生隐私弹窗让用户自主选择
     if (wx.onNeedPrivacyAuthorization) {
-      wx.onNeedPrivacyAuthorization((resolve) => {
-        // 用户触发隐私接口时，微信会自动弹出隐私协议窗口
-        // 此处仅做事件监听，实际弹窗由微信原生组件（chooseAvatar 等）自动触发
-        resolve({ event: 'agree' });
+      wx.onNeedPrivacyAuthorization((resolve, event) => {
+        // 微信会自动弹出内置隐私授权弹窗，用户自主选择同意或拒绝
+        // 此处不做任何操作，避免绕过用户选择
+        console.log('[隐私] 收到授权请求');
       });
     }
 
@@ -115,6 +118,28 @@ App({
     }
   },
 
+  /**
+   * 更新用户头像和昵称，并同步到云端
+   */
+  updateUserProfile(field, value) {
+    if (!this.globalData.userInfo) {
+      this.globalData.userInfo = {};
+    }
+    this.globalData.userInfo[field] = value;
+    wx.setStorageSync(field, value);
+    // 触发云同步，头像/昵称会随 syncToCloud 一起上传
+    this.syncToCloud();
+  },
+
+  /**
+   * 小程序切入后台时，强制同步未上报的数据
+   */
+  onHide() {
+    if (this.globalData.pendingSyncMerit > 0 || this.globalData.pendingSyncPower > 0) {
+      this.syncToCloud(true);
+    }
+  },
+
   addMeritAndPower(m = 1, p = 1) {
     this.globalData.merit += m;
     this.globalData.power += p;
@@ -126,12 +151,38 @@ App({
     };
   },
 
-  syncToCloud() {
-    this.callCloudFn('addMerit', {
-      merit: this.globalData.merit,
-      power: this.globalData.power
-    }).catch(err => {
-      console.warn('[云同步] 后台同步失败:', err.message || err);
-    });
+  /**
+   * 云同步：累积增量，每 20 次敲击批量上报一次
+   * 小程序切入后台时强制 flush（force=true）
+   *
+   * 修复说明：之前直接发送 globalData 累计值，但云函数用 _.inc() 做增量累加，
+   * 导致云端数据膨胀。现改为发送增量 delta，保持语义一致。
+   */
+  syncToCloud(force = false) {
+    this.globalData.pendingSyncMerit += 1;
+    this.globalData.pendingSyncPower += 1;
+
+    if (force || this.globalData.pendingSyncMerit >= 20) {
+      const merit = this.globalData.pendingSyncMerit;
+      const power = this.globalData.pendingSyncPower;
+      this.globalData.pendingSyncMerit = 0;
+      this.globalData.pendingSyncPower = 0;
+
+      const data = { merit, power };
+
+      // 附带头像和昵称（如果有变更）
+      const userInfo = this.globalData.userInfo;
+      if (userInfo) {
+        if (userInfo.avatarUrl) data.avatarUrl = userInfo.avatarUrl;
+        if (userInfo.nickName) data.nickName = userInfo.nickName;
+      }
+
+      this.callCloudFn('addMerit', data).catch(err => {
+        console.warn('[云同步] 后台同步失败:', err.message || err);
+        // 失败时回滚增量，下次重试
+        this.globalData.pendingSyncMerit += merit;
+        this.globalData.pendingSyncPower += power;
+      });
+    }
   }
 });

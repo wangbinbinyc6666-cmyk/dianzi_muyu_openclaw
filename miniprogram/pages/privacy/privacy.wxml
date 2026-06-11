@@ -1,46 +1,46 @@
-<view class="container">
-  <view class="content">
-    <view class="section">
-      <text class="title">隐私政策</text>
-      <text class="update-date">更新日期：2026年5月27日</text>
-      <text class="body-text">电子木鱼（以下简称"本小程序"）高度重视用户隐私保护。本隐私政策旨在向您说明我们如何收集、使用和保护您的个人信息。</text>
+<view class="legal-container">
+  <view class="legal-content">
+    <view class="legal-section">
+      <text class="legal-title">隐私政策</text>
+      <text class="legal-update-date">更新日期：2026年5月27日</text>
+      <text class="legal-body-text">电子木鱼（以下简称"本小程序"）高度重视用户隐私保护。本隐私政策旨在向您说明我们如何收集、使用和保护您的个人信息。</text>
     </view>
 
-    <view class="section">
-      <text class="subtitle">一、我们收集的信息</text>
-      <text class="body-text">1. 头像与昵称：当您自愿设置头像或输入昵称时，我们会将这些信息存储在本地设备及云数据库中，用于在排行榜中展示您的修行成果。</text>
-      <text class="body-text">2. 功德与念力数据：您在敲击木鱼时产生的功德值和念力值，会保存在本地设备和云数据库中，用于排行榜排名。</text>
-      <text class="body-text">3. 微信 OpenID：通过微信云开发自动获取，仅用于识别您在排行榜中的身份，不会关联到您的微信账号信息。</text>
+    <view class="legal-section">
+      <text class="legal-subtitle">一、我们收集的信息</text>
+      <text class="legal-body-text">1. 头像与昵称：当您自愿设置头像或输入昵称时，我们会将这些信息存储在本地设备及云数据库中，用于在排行榜中展示您的修行成果。</text>
+      <text class="legal-body-text">2. 功德与念力数据：您在敲击木鱼时产生的功德值和念力值，会保存在本地设备和云数据库中，用于排行榜排名。</text>
+      <text class="legal-body-text">3. 微信 OpenID：通过微信云开发自动获取，仅用于识别您在排行榜中的身份，不会关联到您的微信账号信息。</text>
     </view>
 
-    <view class="section">
-      <text class="subtitle">二、信息的使用</text>
-      <text class="body-text">1. 您的头像、昵称、功德值和念力值会展示在排行榜中，其他用户可见。</text>
-      <text class="body-text">2. 我们不会将您的信息用于任何商业用途，不会分享给第三方。</text>
-      <text class="body-text">3. 所有数据存储在微信云开发环境中，受微信平台安全保护。</text>
+    <view class="legal-section">
+      <text class="legal-subtitle">二、信息的使用</text>
+      <text class="legal-body-text">1. 您的头像、昵称、功德值和念力值会展示在排行榜中，其他用户可见。</text>
+      <text class="legal-body-text">2. 我们不会将您的信息用于任何商业用途，不会分享给第三方。</text>
+      <text class="legal-body-text">3. 所有数据存储在微信云开发环境中，受微信平台安全保护。</text>
     </view>
 
-    <view class="section">
-      <text class="subtitle">三、信息的存储与保护</text>
-      <text class="body-text">1. 功德和念力数据优先存储在您的设备本地，同时同步到云数据库作为备份。</text>
-      <text class="body-text">2. 云数据库仅您本人和本小程序开发者可访问，采用微信云开发的安全机制。</text>
+    <view class="legal-section">
+      <text class="legal-subtitle">三、信息的存储与保护</text>
+      <text class="legal-body-text">1. 功德和念力数据优先存储在您的设备本地，同时同步到云数据库作为备份。</text>
+      <text class="legal-body-text">2. 云数据库仅您本人和本小程序可访问，采用微信云开发的安全机制。</text>
     </view>
 
-    <view class="section">
-      <text class="subtitle">四、您的权利</text>
-      <text class="body-text">1. 您可以选择不设置头像和昵称，以匿名方式使用本小程序。</text>
-      <text class="body-text">2. 如需删除您的数据，可通过小程序内的联系方式与我们取得联系。</text>
+    <view class="legal-section">
+      <text class="legal-subtitle">四、您的权利</text>
+      <text class="legal-body-text">1. 您可以选择不设置头像和昵称，以匿名方式使用本小程序。</text>
+      <text class="legal-body-text">2. 如需删除您的数据，可通过小程序内的联系方式与我们取得联系。</text>
     </view>
 
-    <view class="section">
-      <text class="subtitle">五、政策更新</text>
-      <text class="body-text">本隐私政策可能适时更新。更新后的政策将在本页面发布，敬请留意。</text>
+    <view class="legal-section">
+      <text class="legal-subtitle">五、政策更新</text>
+      <text class="legal-body-text">本隐私政策可能适时更新。更新后的政策将在本页面发布，敬请留意。</text>
     </view>
 
-    <view class="section">
-      <text class="subtitle">六、联系方式</text>
-      <text class="body-text">如有任何疑问或建议，请通过以下方式联系我们：</text>
-      <text class="body-text">在小程序内点击"我的"→"关于电子木鱼"获取相关信息。</text>
+    <view class="legal-section">
+      <text class="legal-subtitle">六、联系方式</text>
+      <text class="legal-body-text">如有任何疑问或建议，请通过以下方式联系我们：</text>
+      <text class="legal-body-text">在小程序内点击"我的"→"关于电子木鱼"获取相关信息。</text>
     </view>
   </view>
 </view>

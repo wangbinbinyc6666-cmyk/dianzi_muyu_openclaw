@@ -11,7 +11,8 @@ Page({
     nickName: '',
     merit: 0,
     power: 0,
-    myRank: '--'
+    myRank: '--',
+    loading: true
   },
 
   onShow() {
@@ -25,56 +26,49 @@ Page({
       merit,
       power,
       avatarUrl: (userInfo && userInfo.avatarUrl) || wx.getStorageSync('avatarUrl') || '',
-      nickName: (userInfo && userInfo.nickName) || wx.getStorageSync('nickName') || ''
+      nickName: (userInfo && userInfo.nickName) || wx.getStorageSync('nickName') || '',
+      loading: false
     });
 
     this.loadMyRank();
   },
 
+  /**
+   * 获取我的排名：复用排行榜页面的缓存数据，不再单独调用云函数
+   */
   async loadMyRank() {
     try {
-      const res = await app.callCloudFn('getMeritRanking', { limit: 100 });
-
-      const list = res.result.list || [];
-      const currentOpenId = res.result.currentOpenId || '';
-      const myItem = list.find(item => item._openid === currentOpenId);
-
-      if (myItem) {
-        this.setData({ myRank: myItem.rank });
-      } else if (list.length > 0) {
-        this.setData({ myRank: `${list.length}+` });
+      const cache = wx.getStorageSync('rankingCache');
+      if (cache) {
+        const data = JSON.parse(cache);
+        if (data.myRank) {
+          this.setData({ myRank: data.myRank.rank });
+        } else if (data.list && data.list.length > 0) {
+          this.setData({ myRank: `${data.list.length}+` });
+        }
       }
     } catch (e) {
-      // 云函数未部署时保持默认显示
+      // 缓存不存在或解析失败，保持默认显示
     }
   },
 
+  /**
+   * 选择头像后，同步到云端
+   */
   onChooseAvatar(e) {
     const { avatarUrl } = e.detail;
-    wx.setStorageSync('avatarUrl', avatarUrl);
-
-    if (app.globalData.userInfo) {
-      app.globalData.userInfo.avatarUrl = avatarUrl;
-    } else {
-      app.globalData.userInfo = { avatarUrl };
-    }
-
     this.setData({ avatarUrl });
+    app.updateUserProfile('avatarUrl', avatarUrl);
   },
 
+  /**
+   * 设置昵称后，同步到云端
+   */
   onNicknameBlur(e) {
     const nickName = e.detail.value;
     if (!nickName) return;
-
-    wx.setStorageSync('nickName', nickName);
-
-    if (app.globalData.userInfo) {
-      app.globalData.userInfo.nickName = nickName;
-    } else {
-      app.globalData.userInfo = { nickName };
-    }
-
     this.setData({ nickName });
+    app.updateUserProfile('nickName', nickName);
   },
 
   goToPrivacy() {

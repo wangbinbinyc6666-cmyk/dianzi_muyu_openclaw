@@ -1,6 +1,12 @@
 <view class="container">
+  <!-- 加载状态 -->
+  <view class="flex-column-center" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">加载中...</text>
+  </view>
+
   <!-- 用户信息卡片 -->
-  <view class="profile-card">
+  <view class="profile-card" wx:if="{{!loading}}">
     <view class="profile-bg"></view>
     <view class="profile-content">
       <!--
@@ -23,7 +29,7 @@
           type="nickname"
           value="{{nickName}}"
           placeholder="点击设置昵称"
-          placeholder-style="color: #666"
+          placeholder-style="color: #888"
           bindblur="onNicknameBlur"
         />
       </view>
@@ -32,7 +38,7 @@
   </view>
 
   <!-- 功德统计 -->
-  <view class="stats-card">
+  <view class="stats-card" wx:if="{{!loading}}">
     <view class="stat-item">
       <text class="stat-number merit-number">{{merit}}</text>
       <text class="stat-label">总功德 ⚜️</text>

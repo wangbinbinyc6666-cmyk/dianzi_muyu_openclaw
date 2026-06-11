@@ -47,7 +47,7 @@
     </view>
   </view>
 
-  <view class="daily-tip">
+  <view class="daily-tip" wx:if="{{todayMerit > 0}}">
     <text class="tip-text">今日已积 {{todayMerit}} 点功德</text>
   </view>
 

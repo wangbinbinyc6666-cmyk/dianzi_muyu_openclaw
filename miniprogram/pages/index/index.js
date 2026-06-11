@@ -14,10 +14,13 @@ Page({
     autoTapping: false
   },
 
+  _autoTapSession: 0,
+
   onLoad() {
     this.syncFromGlobal();
     this.checkPrivacy();
     this.loadTodayMerit();
+    this._autoTapSession = 0;
   },
 
   checkPrivacy() {
@@ -26,8 +29,6 @@ Page({
       wx.getPrivacySetting({
         success: (res) => {
           if (res.needAuthorization) {
-            // 用户首次使用，微信会自动在需要时弹出授权窗口
-            // 这里仅做记录，授权触发由 chooseAvatar / type="nickname" 组件自动完成
             console.log('[隐私] 需要用户授权隐私协议');
           }
         },
@@ -67,6 +68,16 @@ Page({
   },
 
   onTapWoodfish() {
+    // 自动敲击防刷榜：单次开启最多 100 次
+    if (this.data.autoTapping) {
+      this._autoTapSession++;
+      if (this._autoTapSession > 100) {
+        this.stopAutoTap();
+        wx.showToast({ title: '本轮自动积累已达上限', icon: 'none' });
+        return;
+      }
+    }
+
     // 按压反馈：瞬时亮度变化（不涉及布局偏移）
     this.setData({ tapping: true });
     setTimeout(() => this.setData({ tapping: false }), 120);
@@ -85,9 +96,8 @@ Page({
     wx.setStorageSync('todayMerit', todayMerit);
     this.setData({ todayMerit });
 
-    if (result.merit % 10 === 0) {
-      app.syncToCloud();
-    }
+    // 云同步：增量累积，由 app.syncToCloud 控制批量上报
+    app.syncToCloud();
   },
 
   toggleAutoTap() {
@@ -99,6 +109,7 @@ Page({
   },
 
   startAutoTap() {
+    this._autoTapSession = 0;
     this.setData({ autoTapping: true });
     this._autoTimer = setInterval(() => {
       this.onTapWoodfish();
