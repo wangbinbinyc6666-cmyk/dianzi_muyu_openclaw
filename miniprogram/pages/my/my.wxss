@@ -1,6 +1,6 @@
 /**
  * 我的页面样式
- * 用户信息卡片 + 功德统计 + 功能菜单
+ * v4.0: 新增修行称号、连续签到卡片、分享弹窗
  */
 
 .container {
@@ -78,16 +78,22 @@
   line-height: 50rpx;
 }
 
-.profile-signature {
-  margin-top: 8rpx;
+/* ── 修行称号 ── */
+.profile-rank-title {
+  margin-top: 12rpx;
+  padding: 6rpx 24rpx;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 105, 180, 0.08));
+  border: 1rpx solid rgba(255, 215, 0, 0.25);
+  border-radius: 32rpx;
   font-size: 24rpx;
-  color: #999;
+  color: #FFD700;
+  letter-spacing: 2rpx;
 }
 
 /* ── 功德统计卡片 ── */
 .stats-card {
   display: flex;
-  margin: 30rpx 30rpx;
+  margin: 24rpx 30rpx;
   background: #252540;
   border-radius: 20rpx;
   padding: 30rpx 10rpx;
@@ -129,6 +135,44 @@
   color: #999;
 }
 
+/* ── 修行记录卡片（签到天数 + 修行境界）── */
+.streak-card {
+  display: flex;
+  margin: 0 30rpx 24rpx;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 105, 180, 0.04));
+  border: 1rpx solid rgba(255, 215, 0, 0.15);
+  border-radius: 20rpx;
+  padding: 28rpx 10rpx;
+}
+
+.streak-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.streak-divider {
+  width: 1rpx;
+  background: rgba(255, 215, 0, 0.15);
+}
+
+.streak-num-streak {
+  font-size: 40rpx;
+  font-weight: 800;
+  color: #FFD700;
+  margin-bottom: 8rpx;
+}
+
+.rank-title-text {
+  font-size: 32rpx;
+}
+
+.streak-label {
+  font-size: 24rpx;
+  color: #999;
+}
+
 /* ── 功能菜单 ── */
 .menu-list {
   margin: 0 30rpx;
@@ -144,6 +188,7 @@
   padding: 32rpx 30rpx;
   border-bottom: 1rpx solid rgba(255, 255, 255, 0.05);
   min-height: 88rpx;
+  transition: background 0.15s ease;
 }
 
 .menu-item:last-child {
@@ -157,6 +202,11 @@
 .menu-left {
   display: flex;
   align-items: center;
+  gap: 16rpx;
+}
+
+.menu-icon {
+  font-size: 32rpx;
 }
 
 .menu-text {
@@ -204,7 +254,81 @@
   to { transform: rotate(360deg); }
 }
 
-/* ── 菜单项过渡 ── */
-.menu-item {
-  transition: background 0.15s ease;
+/* ══════════════════════════════════════
+   分享底部弹窗
+   ══════════════════════════════════════ */
+
+.share-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+  animation: fadeIn 0.2s ease;
+}
+
+.share-sheet {
+  width: 100%;
+  background: #252540;
+  border-radius: 32rpx 32rpx 0 0;
+  padding: 40rpx 30rpx calc(40rpx + env(safe-area-inset-bottom));
+  animation: slideUp 0.3s ease;
+}
+
+.sheet-title {
+  text-align: center;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #FFD700;
+  margin-bottom: 36rpx;
+  letter-spacing: 2rpx;
+}
+
+.sheet-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 36rpx;
+}
+
+.sheet-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24rpx 28rpx;
+  border-radius: 20rpx;
+  background: #1a1a2e;
+  width: 30%;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.sheet-btn-icon {
+  font-size: 48rpx;
+  margin-bottom: 12rpx;
+}
+
+.sheet-btn-text {
+  font-size: 24rpx;
+  color: #ddd;
+}
+
+.sheet-close {
+  text-align: center;
+  font-size: 28rpx;
+  color: #888;
+  padding: 24rpx;
+  border-top: 1rpx solid #333;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
 }

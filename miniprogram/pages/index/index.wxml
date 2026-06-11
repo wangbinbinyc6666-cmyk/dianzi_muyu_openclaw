@@ -1,8 +1,56 @@
 <view class="container">
+
+  <!-- ═══ 签到弹窗（首次进入触发）═══ -->
+  <view class="checkin-overlay" wx:if="{{showCheckIn}}" catchtap="closeCheckIn" catchtouchmove="closeCheckIn">
+    <view class="checkin-popup" catchtap="">
+      <view class="checkin-icon">🙏</view>
+      <view class="checkin-title">{{checkedIn ? '今日已签到' : '阿弥陀佛，今日签到'}}</view>
+      <view class="checkin-streak" wx:if="{{checkedIn && streakDays > 0}}">
+        连续签到 <text class="streak-num">{{streakDays}}</text> 天
+      </view>
+      <view class="checkin-reward" wx:if="{{checkedIn}}">
+        获得 <text class="reward-num">2 + {{streakDays > 20 ? 20 : streakDays}}</text> 功德
+      </view>
+      <view class="checkin-sub" wx:if="{{!checkedIn}}">
+        签到获得 2+ 功德，连续签到奖励翻倍
+      </view>
+      <view class="checkin-btn" bindtap="onCheckInTap" wx:if="{{!checkedIn}}" hover-class="btn-hover">
+        立即签到
+      </view>
+      <view class="checkin-btn checked" bindtap="closeCheckIn" wx:else hover-class="btn-hover">
+        今日已签到 ✓
+      </view>
+    </view>
+  </view>
+
+  <!-- ═══ 分享底部弹窗 ═══ -->
+  <view class="share-overlay" wx:if="{{showShareSheet}}" catchtap="closeShareSheet">
+    <view class="share-sheet" catchtap="">
+      <view class="sheet-title">分享功德 · 广结善缘</view>
+      <view class="sheet-buttons">
+        <view class="sheet-btn" bindtap="onNativeShare" hover-class="btn-hover">
+          <text class="sheet-btn-icon">📤</text>
+          <text class="sheet-btn-text">分享给好友</text>
+        </view>
+        <view class="sheet-btn" bindtap="onShareTimelineClick" hover-class="btn-hover">
+          <text class="sheet-btn-icon">🌐</text>
+          <text class="sheet-btn-text">分享到朋友圈</text>
+        </view>
+        <view class="sheet-btn" bindtap="onDedicateMerit" hover-class="btn-hover">
+          <text class="sheet-btn-icon">🙏</text>
+          <text class="sheet-btn-text">功德回向</text>
+        </view>
+      </view>
+      <view class="sheet-close" bindtap="closeShareSheet">取消</view>
+    </view>
+  </view>
+
+  <!-- ═══ 顶部横幅 ═══ -->
   <view class="header-banner">
     <text class="banner-text">阿弥陀佛，施主请敲木鱼</text>
   </view>
 
+  <!-- ═══ 木鱼敲击区 ═══ -->
   <view class="woodfish-container" bindtap="onTapWoodfish">
     <view class="mallet-wrapper {{tapping ? 'mallet-strike' : ''}}">
       <image src="/images/mallet.png" mode="aspectFit" class="mallet-img" />
@@ -13,6 +61,12 @@
     <view class="tap-hint">轻敲木鱼 · 积攒功德</view>
   </view>
 
+  <!-- ═══ 修行称号 ═══ -->
+  <view class="rank-title-bar">
+    <text class="rank-title">🧘 {{rankTitle}}</text>
+  </view>
+
+  <!-- ═══ 数据面板 ═══ -->
   <view class="counters">
     <view class="counter-item">
       <text class="counter-label">功德</text>
@@ -27,7 +81,7 @@
     </view>
   </view>
 
-  <!-- 自动敲击开关 -->
+  <!-- ═══ 自动敲击 ═══ -->
   <view class="auto-tap-bar">
     <view class="auto-tap-btn {{autoTapping ? 'active' : ''}}" bindtap="toggleAutoTap">
       <text class="auto-tap-icon">{{autoTapping ? '⏸' : '▶'}}</text>
@@ -36,19 +90,34 @@
     <text class="auto-tap-speed" wx:if="{{autoTapping}}">积累功德中...</text>
   </view>
 
+  <!-- ═══ 功能按钮 ═══ -->
   <view class="action-buttons">
     <view class="action-btn btn-ranking" bindtap="goToRanking" hover-class="btn-hover">
-      <text class="btn-label">排行榜</text>
+      <text class="btn-label">🏆 排行榜</text>
       <text class="btn-desc">修行精进</text>
     </view>
     <view class="action-btn btn-share" bindtap="onShare" hover-class="btn-hover">
-      <text class="btn-label">分享功德</text>
+      <text class="btn-label">📤 分享</text>
       <text class="btn-desc">广结善缘</text>
     </view>
   </view>
 
-  <view class="daily-tip" wx:if="{{todayMerit > 0}}">
-    <text class="tip-text">今日已积 {{todayMerit}} 点功德</text>
+  <!-- ═══ 功德回向 + 今日进度 ═══ -->
+  <view class="bottom-actions">
+    <view class="dedicate-btn" bindtap="onDedicateMerit" hover-class="btn-hover">
+      <text class="dedicate-icon">🙏</text>
+      <text class="dedicate-text">功德回向</text>
+      <text class="dedicate-sub">为他人祈福</text>
+    </view>
+    <view class="daily-progress">
+      <view class="daily-progress-info">
+        <text class="daily-progress-label">今日目标</text>
+        <text class="daily-progress-num">{{todayMerit}} / {{dailyGoal}}</text>
+      </view>
+      <view class="progress-bar">
+        <view class="progress-fill {{todayMerit >= dailyGoal ? 'full' : ''}}" style="width: {{todayMerit >= dailyGoal ? 100 : (todayMerit / dailyGoal * 100)}}%"></view>
+      </view>
+    </view>
   </view>
 
   <view class="safe-bottom"></view>

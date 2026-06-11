@@ -1,5 +1,6 @@
 /**
- * 首页 - 木鱼敲击
+ * 首页 - 木鱼敲击样式
+ * v4.0: 新增签到弹窗、分享弹窗、修行称号、功德回向、每日进度
  */
 
 .container {
@@ -32,7 +33,7 @@
 /* ── 木鱼区域 ── */
 .woodfish-container {
   position: relative;
-  margin-top: 80rpx;
+  margin-top: 50rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,7 +45,6 @@
   transition: opacity 0.12s ease-out, transform 0.12s ease-out;
 }
 
-/* 按压反馈：亮度变化 + 微缩放（不涉及布局偏移） */
 .woodfish-wrapper.pressed {
   opacity: 0.78;
   transform: scale(0.96);
@@ -86,11 +86,26 @@
   height: 240rpx;
 }
 
+/* ── 修行称号 ── */
+.rank-title-bar {
+  margin-top: 24rpx;
+  padding: 10rpx 36rpx;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 105, 180, 0.05));
+  border: 1rpx solid rgba(255, 215, 0, 0.2);
+  border-radius: 40rpx;
+}
+
+.rank-title {
+  font-size: 24rpx;
+  color: #FFD700;
+  letter-spacing: 2rpx;
+}
+
 /* ── 计数器 ── */
 .counters {
   display: flex;
   align-items: center;
-  margin-top: 48rpx;
+  margin-top: 32rpx;
   width: 80%;
   background: #252540;
   border-radius: 24rpx;
@@ -122,6 +137,7 @@
   font-size: 52rpx;
   font-weight: 800;
   font-variant-numeric: tabular-nums;
+  transition: transform 0.2s ease;
 }
 
 .merit-value {
@@ -140,54 +156,9 @@
   font-size: 20rpx;
 }
 
-/* ── 功能按钮 ── */
-.action-buttons {
-  display: flex;
-  gap: 20rpx;
-  margin-top: 48rpx;
-  width: 85%;
-}
-
-.action-btn {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 32rpx 12rpx;
-  border-radius: 20rpx;
-  transition: opacity 0.2s ease, transform 0.15s ease;
-}
-
-.btn-hover {
-  opacity: 0.8;
-  transform: scale(0.97);
-}
-
-.btn-label {
-  font-size: 28rpx;
-  font-weight: 600;
-  margin-bottom: 4rpx;
-}
-
-.btn-desc {
-  font-size: 20rpx;
-  opacity: 0.7;
-}
-
-.btn-ranking {
-  background: linear-gradient(135deg, #FFD700, #FFA500);
-  color: #1a1a2e;
-}
-
-.btn-share {
-  background: #2a2a40;
-  color: #ddd;
-}
-
-/* ── 自动敲击开关 ── */
+/* ── 自动敲击 ── */
 .auto-tap-bar {
-  margin-top: 32rpx;
+  margin-top: 24rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -199,7 +170,7 @@
   align-items: center;
   justify-content: center;
   gap: 12rpx;
-  padding: 20rpx 48rpx;
+  padding: 16rpx 40rpx;
   border-radius: 48rpx;
   background: #2a2a40;
   border: 2rpx solid #555;
@@ -237,30 +208,138 @@
   50% { opacity: 1; }
 }
 
-/* ── 今日提示 ── */
-.daily-tip {
-  margin-top: 40rpx;
-  padding: 16rpx 32rpx;
-  background: rgba(255, 215, 0, 0.06);
-  border-radius: 40rpx;
-  border: 1rpx solid rgba(255, 215, 0, 0.12);
+/* ── 功能按钮 ── */
+.action-buttons {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 32rpx;
+  width: 85%;
 }
 
-.tip-text {
-  color: #999;
+.action-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 28rpx 12rpx;
+  border-radius: 20rpx;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+}
+
+.btn-hover {
+  opacity: 0.8;
+  transform: scale(0.97);
+}
+
+.btn-label {
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-bottom: 4rpx;
+}
+
+.btn-desc {
+  font-size: 20rpx;
+  opacity: 0.7;
+}
+
+.btn-ranking {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  color: #1a1a2e;
+}
+
+.btn-share {
+  background: #2a2a40;
+  color: #ddd;
+  border: 1rpx solid rgba(255, 215, 0, 0.2);
+}
+
+/* ── 底部操作区（回向 + 每日进度）── */
+.bottom-actions {
+  width: 85%;
+  margin-top: 24rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.dedicate-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  padding: 22rpx;
+  background: linear-gradient(135deg, rgba(255, 105, 180, 0.12), rgba(255, 215, 0, 0.08));
+  border: 1rpx solid rgba(255, 105, 180, 0.25);
+  border-radius: 20rpx;
+  transition: opacity 0.2s ease;
+}
+
+.dedicate-icon {
+  font-size: 30rpx;
+}
+
+.dedicate-text {
+  font-size: 28rpx;
+  color: #FF69B4;
+  font-weight: 600;
+}
+
+.dedicate-sub {
   font-size: 22rpx;
+  color: #999;
+  margin-left: 4rpx;
 }
 
-/* ── 底部安全区 ─ */
+/* ── 每日进度条 ── */
+.daily-progress {
+  padding: 20rpx 24rpx;
+  background: #252540;
+  border-radius: 16rpx;
+}
+
+.daily-progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.daily-progress-label {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.daily-progress-num {
+  font-size: 24rpx;
+  color: #FFD700;
+  font-weight: 600;
+}
+
+.progress-bar {
+  height: 8rpx;
+  background: #1a1a2e;
+  border-radius: 4rpx;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #FFD700, #FFA500);
+  border-radius: 4rpx;
+  transition: width 0.3s ease;
+}
+
+.progress-fill.full {
+  background: linear-gradient(90deg, #FF69B4, #FFD700);
+}
+
+/* ── 底部安全区 ── */
 .safe-bottom {
   height: 120rpx;
 }
 
-/* ── 计数器数值变化动画 ── */
-.counter-value {
-  transition: transform 0.2s ease;
-}
-
+/* ── 数值弹跳动画 ── */
 .counter-value.bump {
   animation: numberBump 0.2s ease-out;
 }
@@ -269,4 +348,183 @@
   0% { transform: scale(1); }
   50% { transform: scale(1.08); }
   100% { transform: scale(1); }
+}
+
+/* ══════════════════════════════════════
+   签到弹窗
+   ══════════════════════════════════════ */
+
+.checkin-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.25s ease;
+}
+
+.checkin-popup {
+  width: 580rpx;
+  background: linear-gradient(180deg, #2a2040, #1e1e36);
+  border-radius: 32rpx;
+  padding: 56rpx 48rpx 48rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2rpx solid rgba(255, 215, 0, 0.25);
+  box-shadow: 0 20rpx 60rpx rgba(0, 0, 0, 0.5), 0 0 40rpx rgba(255, 215, 0, 0.08);
+  animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.checkin-icon {
+  font-size: 80rpx;
+  margin-bottom: 16rpx;
+}
+
+.checkin-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #FFD700;
+  margin-bottom: 20rpx;
+  letter-spacing: 2rpx;
+}
+
+.checkin-streak {
+  font-size: 28rpx;
+  color: #ddd;
+  margin-bottom: 8rpx;
+}
+
+.streak-num {
+  color: #FFD700;
+  font-weight: 700;
+  font-size: 36rpx;
+}
+
+.checkin-reward {
+  font-size: 26rpx;
+  color: #ccc;
+  margin-bottom: 16rpx;
+}
+
+.reward-num {
+  color: #FFD700;
+  font-weight: 600;
+}
+
+.checkin-sub {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 32rpx;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.checkin-btn {
+  margin-top: 24rpx;
+  padding: 22rpx 80rpx;
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  color: #1a1a2e;
+  font-size: 30rpx;
+  font-weight: 700;
+  border-radius: 48rpx;
+  letter-spacing: 4rpx;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+}
+
+.checkin-btn.checked {
+  background: #252540;
+  color: #999;
+  border: 1rpx solid #444;
+  font-weight: 500;
+}
+
+/* ══════════════════════════════════════
+   分享底部弹窗
+   ══════════════════════════════════════ */
+
+.share-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+  animation: fadeIn 0.2s ease;
+}
+
+.share-sheet {
+  width: 100%;
+  background: #252540;
+  border-radius: 32rpx 32rpx 0 0;
+  padding: 40rpx 30rpx calc(40rpx + env(safe-area-inset-bottom));
+  animation: slideUp 0.3s ease;
+}
+
+.sheet-title {
+  text-align: center;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #FFD700;
+  margin-bottom: 36rpx;
+  letter-spacing: 2rpx;
+}
+
+.sheet-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 36rpx;
+}
+
+.sheet-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24rpx 28rpx;
+  border-radius: 20rpx;
+  background: #1a1a2e;
+  width: 30%;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.sheet-btn-icon {
+  font-size: 48rpx;
+  margin-bottom: 12rpx;
+}
+
+.sheet-btn-text {
+  font-size: 24rpx;
+  color: #ddd;
+}
+
+.sheet-close {
+  text-align: center;
+  font-size: 28rpx;
+  color: #888;
+  padding: 24rpx;
+  border-top: 1rpx solid #333;
+}
+
+/* ── 弹窗动画 ── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
 }

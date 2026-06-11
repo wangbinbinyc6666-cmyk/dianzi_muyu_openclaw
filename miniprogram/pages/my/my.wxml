@@ -1,19 +1,37 @@
 <view class="container">
+
+  <!-- ═══ 分享底部弹窗 ═══ -->
+  <view class="share-overlay" wx:if="{{showShareSheet}}" catchtap="closeShareSheet">
+    <view class="share-sheet" catchtap="">
+      <view class="sheet-title">分享功德 · 广结善缘</view>
+      <view class="sheet-buttons">
+        <view class="sheet-btn" bindtap="onNativeShare" hover-class="menu-item-hover">
+          <text class="sheet-btn-icon">📤</text>
+          <text class="sheet-btn-text">分享给好友</text>
+        </view>
+        <view class="sheet-btn" bindtap="onShareTimelineClick" hover-class="menu-item-hover">
+          <text class="sheet-btn-icon">🌐</text>
+          <text class="sheet-btn-text">分享到朋友圈</text>
+        </view>
+        <view class="sheet-btn" bindtap="onDedicateMerit" hover-class="menu-item-hover">
+          <text class="sheet-btn-icon">🙏</text>
+          <text class="sheet-btn-text">功德回向</text>
+        </view>
+      </view>
+      <view class="sheet-close" bindtap="closeShareSheet">取消</view>
+    </view>
+  </view>
+
   <!-- 加载状态 -->
   <view class="flex-column-center" wx:if="{{loading}}">
     <view class="loading-spinner"></view>
     <text class="loading-text">加载中...</text>
   </view>
 
-  <!-- 用户信息卡片 -->
+  <!-- ═══ 用户信息卡片 ═══ -->
   <view class="profile-card" wx:if="{{!loading}}">
     <view class="profile-bg"></view>
     <view class="profile-content">
-      <!--
-        头像获取方式：
-        使用微信 button open-type="chooseAvatar" 获取用户头像
-        目前使用默认占位符
-      -->
       <button class="avatar-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
         <image
           class="profile-avatar"
@@ -33,11 +51,11 @@
           bindblur="onNicknameBlur"
         />
       </view>
-      <text class="profile-signature">修行在心，功德在行</text>
+      <view class="profile-rank-title">🧘 {{rankTitle}}</view>
     </view>
   </view>
 
-  <!-- 功德统计 -->
+  <!-- ═══ 功德统计 ═══ -->
   <view class="stats-card" wx:if="{{!loading}}">
     <view class="stat-item">
       <text class="stat-number merit-number">{{merit}}</text>
@@ -55,16 +73,40 @@
     </view>
   </view>
 
+  <!-- ═══ 修行记录卡片 ═══ -->
+  <view class="streak-card" wx:if="{{!loading}}">
+    <view class="streak-item">
+      <text class="streak-num-streak">{{streakDays}}</text>
+      <text class="streak-label">连续签到 🔥</text>
+    </view>
+    <view class="streak-divider"></view>
+    <view class="streak-item">
+      <text class="streak-num-streak rank-title-text">{{rankTitle}}</text>
+      <text class="streak-label">修行境界 🧘</text>
+    </view>
+  </view>
+
+  <!-- ═══ 功能菜单 ═══ -->
   <view class="menu-list">
     <view class="menu-item" bindtap="onShare" hover-class="menu-item-hover">
       <view class="menu-left">
-        <text class="menu-text">分享给好友</text>
+        <text class="menu-icon">📤</text>
+        <text class="menu-text">分享功德</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+
+    <view class="menu-item" bindtap="onDedicateMerit" hover-class="menu-item-hover">
+      <view class="menu-left">
+        <text class="menu-icon">🙏</text>
+        <text class="menu-text">功德回向</text>
       </view>
       <text class="menu-arrow">›</text>
     </view>
 
     <view class="menu-item" bindtap="showAbout" hover-class="menu-item-hover">
       <view class="menu-left">
+        <text class="menu-icon">ℹ️</text>
         <text class="menu-text">关于电子木鱼</text>
       </view>
       <text class="menu-arrow">›</text>
@@ -74,6 +116,7 @@
   <view class="menu-list" style="margin-top: 16rpx;">
     <view class="menu-item" bindtap="goToPrivacy" hover-class="menu-item-hover">
       <view class="menu-left">
+        <text class="menu-icon">🔒</text>
         <text class="menu-text">隐私政策</text>
       </view>
       <text class="menu-arrow">›</text>
@@ -81,6 +124,7 @@
 
     <view class="menu-item" bindtap="goToAgreement" hover-class="menu-item-hover">
       <view class="menu-left">
+        <text class="menu-icon">📋</text>
         <text class="menu-text">用户协议</text>
       </view>
       <text class="menu-arrow">›</text>
@@ -89,7 +133,7 @@
 
   <!-- 版本信息 -->
   <view class="version-info">
-    <text class="version-text">电子木鱼 v1.0.0</text>
+    <text class="version-text">电子木鱼 v2.0.0</text>
     <text class="copyright-text">🙏 愿功德与你同在</text>
   </view>
 </view>
