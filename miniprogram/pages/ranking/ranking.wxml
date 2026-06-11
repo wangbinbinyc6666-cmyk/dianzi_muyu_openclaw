@@ -71,7 +71,12 @@
 
     <!-- 底部提示 -->
     <view class="list-footer" wx:if="{{rankingList.length >= 100}}">
-      <text class="footer-text">仅显示前100名</text>
+      <text class="footer-text">显示前 {{rankingList.length}} 名</text>
+      <text class="footer-text" wx:if="{{myRank && myRank.rank > 100}}" style="margin-left: 16rpx;">| 你的排名：第 {{myRank.rank}} 名</text>
+    </view>
+    <!-- 总参与人数 -->
+    <view class="list-footer" wx:if="{{totalUsers > 0 && rankingList.length < 100}}">
+      <text class="footer-text">共 {{totalUsers}} 人参与修行</text>
     </view>
   </view>
 

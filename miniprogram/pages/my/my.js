@@ -34,21 +34,41 @@ Page({
   },
 
   /**
-   * 获取我的排名：复用排行榜页面的缓存数据，不再单独调用云函数
+   * 获取我的排名：优先使用排行榜缓存中云端返回的精确排名
+   *
+   * v2.0：
+   *   - 缓存中包含云端返回的 userRank（即使不在前100也有精确排名）
+   *   - 缓存为空时，主动调用云函数获取排名（不依赖用户先访问排行榜）
    */
   async loadMyRank() {
+    // 1. 先尝试从缓存读取
     try {
       const cache = wx.getStorageSync('rankingCache');
       if (cache) {
         const data = JSON.parse(cache);
         if (data.myRank) {
           this.setData({ myRank: data.myRank.rank });
-        } else if (data.list && data.list.length > 0) {
+          return;
+        }
+        if (data.list && data.list.length > 0) {
           this.setData({ myRank: `${data.list.length}+` });
+          return;
         }
       }
     } catch (e) {
-      // 缓存不存在或解析失败，保持默认显示
+      // 缓存不存在或解析失败
+    }
+
+    // 2. 缓存为空 → 主动调用云函数获取排名
+    try {
+      const res = await app.callCloudFn('getMeritRanking', { limit: 1 });
+      const userRank = res.result.userRank;
+      if (userRank) {
+        this.setData({ myRank: userRank.rank });
+      }
+    } catch (err) {
+      console.warn('[我的] 获取排名失败:', err.message || err);
+      // 保持默认 '--'
     }
   },
 
