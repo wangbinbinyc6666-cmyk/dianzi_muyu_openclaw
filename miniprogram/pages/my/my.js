@@ -38,12 +38,36 @@ Page({
     rankTitle: '初来乍到',
     dedicateTarget: '',
     showDedicatePopup: false,
-    dedicateInputValue: ''
+    dedicateInputValue: '',
+    // 每日签到
+    todayCheckedIn: false
   },
 
   onShow() {
     this.loadUserData();
     this._setupShareMenu();
+    this._checkTodayStatus();
+    this._autoSyncNickname();  // 新增：自动同步昵称
+  },
+
+  // 自动同步昵称到云端
+  _autoSyncNickname() {
+    const app = getApp();
+    const nickName = this.data.nickName;
+    if (nickName && nickName.length > 0) {
+      // 延迟执行，避免阻塞UI
+      setTimeout(() => {
+        app.updateUserProfile('nickName', nickName);
+      }, 1000);
+    }
+  },
+
+  // 检查今日签到状态
+  _checkTodayStatus() {
+    const today = new Date().toDateString();
+    const lastCheckIn = wx.getStorageSync('lastCheckInDate');
+    const todayCheckedIn = (lastCheckIn === today);
+    this.setData({ todayCheckedIn });
   },
 
   loadUserData() {
@@ -134,6 +158,92 @@ Page({
       showCancel: false,
       confirmText: '阿弥陀佛',
       confirmColor: '#FFD700'
+    });
+  },
+
+  // 每日签到
+  onDailyCheckIn() {
+    const today = new Date().toDateString();
+    const lastCheckIn = wx.getStorageSync('lastCheckInDate');
+
+    if (lastCheckIn === today) {
+      wx.showToast({ title: '今日已签到', icon: 'none' });
+      return;
+    }
+
+    // 计算连续签到天数
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yesterdayStr = yesterday.toDateString();
+    const lastCheckInStr = wx.getStorageSync('lastCheckInDate');
+
+    let streakDays = wx.getStorageSync('checkInStreak') || 0;
+    if (lastCheckInStr === yesterdayStr) {
+      // 连续签到
+      streakDays += 1;
+    } else {
+      // 断签，重新开始
+      streakDays = 1;
+    }
+
+    // 计算奖励
+    const reward = 2 + (streakDays > 20 ? 20 : streakDays);
+
+    // 更新本地存储
+    wx.setStorageSync('lastCheckInDate', today);
+    wx.setStorageSync('checkInStreak', streakDays);
+
+    // 更新功德
+    const app = getApp();
+    const newMerit = (app.globalData.merit || 0) + reward;
+    app.globalData.merit = newMerit;
+    wx.setStorageSync('merit', newMerit);
+
+    // 更新UI
+    this.setData({
+      todayCheckedIn: true,
+      streakDays: streakDays,
+      merit: newMerit
+    });
+
+    wx.showToast({
+      title: `签到成功！+${reward}功德`,
+      icon: 'success'
+    });
+  },
+
+  // 同步资料到排行榜
+  onSyncProfile() {
+    const app = getApp();
+    const nickName = this.data.nickName;
+    const avatarUrl = this.data.avatarUrl;
+
+    if (!nickName) {
+      wx.showToast({ title: '请先设置昵称', icon: 'none' });
+      return;
+    }
+
+    wx.showLoading({ title: '同步中...' });
+
+    // 强制同步到云端
+    app.updateUserProfile('nickName', nickName);
+    if (avatarUrl) {
+      app.updateUserProfile('avatarUrl', avatarUrl);
+    }
+
+    // 额外调用一次云函数确保同步
+    app.callCloudFn('addMerit', {
+      merit: 0,
+      power: 0,
+      nickName: nickName,
+      avatarUrl: avatarUrl
+    }).then(() => {
+      wx.hideLoading();
+      wx.showToast({ title: '同步成功', icon: 'success' });
+    }).catch(err => {
+      wx.hideLoading();
+      wx.showToast({ title: '同步失败', icon: 'none' });
+      console.error('[同步] 失败:', err);
     });
   },
 

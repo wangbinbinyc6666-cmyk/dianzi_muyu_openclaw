@@ -361,3 +361,13 @@
   from { transform: scale(0.8); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
+
+/* 每日签到按钮徽章 */
+.menu-badge {
+  font-size: 20rpx;
+  color: #FF6B6B;
+  background: #FFE4E4;
+  padding: 2rpx 12rpx;
+  border-radius: 20rpx;
+  margin-left: 12rpx;
+}
