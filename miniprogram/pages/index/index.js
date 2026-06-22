@@ -92,6 +92,11 @@ Page({
   },
 
   onHide() {
+    // 切换页面时不停止自动敲击，保持连续积累
+  },
+
+  onUnload() {
+    // 关闭页面时才停止自动敲击
     this.stopAutoTap();
   },
 
