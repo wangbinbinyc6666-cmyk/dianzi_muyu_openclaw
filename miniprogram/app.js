@@ -151,6 +151,15 @@ App({
   },
 
   /**
+   * 检查是否已设置昵称
+   * @returns {boolean} 是否已设置昵称
+   */
+  checkNicknameSet() {
+    const nickName = wx.getStorageSync('nickName');
+    return nickName && nickName.length > 0;
+  },
+
+  /**
    * 更新用户头像和昵称，并同步到云端
    */
   updateUserProfile(field, value) {
@@ -159,8 +168,8 @@ App({
     }
     this.globalData.userInfo[field] = value;
     wx.setStorageSync(field, value);
-    // 触发云同步，头像/昵称会随 syncToCloud 一起上传
-    this.syncToCloud();
+    // 强制立即同步到云端，确保排行榜显示最新昵称
+    this.syncToCloud(true);
   },
 
   /**
@@ -218,6 +227,12 @@ App({
       if (userInfo) {
         if (userInfo.avatarUrl) data.avatarUrl = userInfo.avatarUrl;
         if (userInfo.nickName) data.nickName = userInfo.nickName;
+      }
+
+      // 确保昵称从本地存储同步（兼容旧版本）
+      const localNickName = wx.getStorageSync('nickName');
+      if (localNickName && !data.nickName) {
+        data.nickName = localNickName;
       }
 
       this.callCloudFn('addMerit', data).catch(err => {

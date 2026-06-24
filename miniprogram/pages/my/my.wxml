@@ -152,7 +152,7 @@
 
   <!-- 版本信息 -->
   <view class="version-info">
-    <text class="version-text">电子木鱼 v2.0.0</text>
+    <text class="version-text">电子木鱼 v1.3.0</text>
     <text class="copyright-text">🙏 愿功德与你同在</text>
   </view>
 </view>

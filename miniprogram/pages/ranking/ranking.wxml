@@ -5,6 +5,12 @@
     <text class="page-desc">精进修行，名列前茅</text>
   </view>
 
+  <!-- 昵称设置提示 -->
+  <view class="nickname-tip" wx:if="{{!hasNickname}}">
+    <text class="tip-text">设置昵称，让其他修行者认识你</text>
+    <text class="tip-btn" bindtap="goToSetNickname">去设置</text>
+  </view>
+
   <!-- 我的排名卡片（始终显示在顶部） -->
   <view class="my-rank-card" wx:if="{{myRank}}">
     <view class="my-rank-badge">第 {{myRank.rank}} 名</view>

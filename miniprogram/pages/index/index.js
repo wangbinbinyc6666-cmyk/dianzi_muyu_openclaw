@@ -73,7 +73,7 @@ Page({
 
   onLoad(options) {
     this.syncFromGlobal();
-    this.checkPrivacy();
+    // this.checkPrivacy(); // 已在 app.js 中处理隐私授权
     this.loadTodayMerit();
     this._autoTapSession = 0;
     this.loadCheckInState();
@@ -84,6 +84,9 @@ Page({
     if (options && options.from) {
       this._fromShare = true;
     }
+
+    // 首次使用昵称设置引导
+    this._showNicknameGuide();
   },
 
   onShow() {
@@ -105,6 +108,47 @@ Page({
       merit: app.globalData.merit,
       power: app.globalData.power
     });
+  },
+
+  // ──────────────────────────────────────────
+  // 昵称设置引导
+  // ──────────────────────────────────────────
+
+  /**
+   * 首次使用昵称设置引导
+   * 延迟2秒显示，避免阻塞用户首次体验
+   */
+  _showNicknameGuide() {
+    // 检查是否已设置昵称
+    const nickName = wx.getStorageSync('nickName');
+    if (nickName && nickName.length > 0) {
+      return; // 已设置，不显示引导
+    }
+
+    // 检查是否已显示过引导
+    const guideShown = wx.getStorageSync('nicknameGuideShown');
+    if (guideShown) {
+      return; // 已显示过，不重复显示
+    }
+
+    // 延迟显示，避免阻塞UI
+    setTimeout(() => {
+      wx.showModal({
+        title: '欢迎来到电子木鱼 🙏',
+        content: '设置一个昵称，让其他修行者认识你吧！',
+        confirmText: '设置昵称',
+        cancelText: '稍后设置',
+        confirmColor: '#FFD700',
+        success: (res) => {
+          if (res.confirm) {
+            // 跳转到"我的"页面设置昵称
+            wx.switchTab({ url: '/pages/my/my' });
+          }
+          // 记录已显示过引导
+          wx.setStorageSync('nicknameGuideShown', true);
+        }
+      });
+    }, 2000); // 延迟2秒显示，让用户先体验小程序
   },
 
   // ──────────────────────────────────────────

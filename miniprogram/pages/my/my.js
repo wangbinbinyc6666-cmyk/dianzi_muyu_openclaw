@@ -154,7 +154,7 @@ Page({
   showAbout() {
     wx.showModal({
       title: '关于电子木鱼',
-      content: '电子木鱼 v2.0.0\n\n一款模拟敲击木鱼积攒功德的禅意小程序。\n\n🙏 每日签到 · 功德回向 · 修行排行\n\n一敲一功德，心诚则灵。\n\n🙏 愿世界和平，众生安康 🙏',
+      content: '电子木鱼 v1.3.0\n\n一款模拟敲击木鱼积攒功德的禅意小程序。\n\n🙏 每日签到 · 功德回向 · 修行排行\n\n一敲一功德，心诚则灵。\n\n🙏 愿世界和平，众生安康 🙏',
       showCancel: false,
       confirmText: '阿弥陀佛',
       confirmColor: '#FFD700'

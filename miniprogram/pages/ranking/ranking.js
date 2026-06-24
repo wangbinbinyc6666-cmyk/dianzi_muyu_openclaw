@@ -16,11 +16,33 @@ Page({
     loading: true,
     loadError: false,
     refreshing: false,
-    totalUsers: 0
+    totalUsers: 0,
+    hasNickname: false
   },
 
   onShow() {
-    this.loadRanking();
+    // 延迟加载，确保昵称同步到云端后再获取排行榜数据
+    setTimeout(() => {
+      this.loadRanking();
+      this._checkNickname();
+    }, 500);
+  },
+
+  /**
+   * 检查是否已设置昵称
+   */
+  _checkNickname() {
+    const nickName = wx.getStorageSync('nickName');
+    this.setData({
+      hasNickname: nickName && nickName.length > 0
+    });
+  },
+
+  /**
+   * 跳转到设置昵称
+   */
+  goToSetNickname() {
+    wx.switchTab({ url: '/pages/my/my' });
   },
 
   async loadRanking() {
